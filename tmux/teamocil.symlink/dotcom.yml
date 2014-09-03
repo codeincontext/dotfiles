@@ -1,0 +1,14 @@
+windows:
+  - name: processes
+    root: "~/code/dotcom"
+    layout: tiled
+    splits:
+      - cmd:
+  - name: editor
+    layout: "4344,283x66,0,0[283x43,0,0,16,283x22,0,44{140x22,0,44,18,142x22,141,44,21}]"
+    root: "~/code/dotcom"
+    splits:
+      - cmd: "vim ."
+      - cmd: "git status"
+      - cmd: ""
+        focus: true
