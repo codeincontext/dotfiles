@@ -101,6 +101,12 @@ endif
 
 " --- Mappings ---
 
+" make Y yank to end of line (like it should do)
+nmap Y y$
+
+" don't yank the replaced text when pasting in visual mode
+vnoremap p "_dP
+
 " Remap backtick to esc using KeyRemap4Macbook
 " Trust me, backtick is an amazing key for this
 "   
@@ -121,6 +127,28 @@ inoremap <Right> <NOP>
 inoremap <Up>    <NOP>
 inoremap <Down>  <NOP>
 
+" --- tmux ---
+
+function TmuxPaneJumpForKey(key)
+  let l:win_count = winnr('$')
+  " :echo "received " . a:key
+
+  if (a:key ==# "u" && l:win_count > 1)
+    call s:JumpToWindow(1)
+  elseif (a:key ==# "i" && l:win_count > 2)
+    call s:JumpToWindow(2)
+  elseif (a:key ==# "o" && l:win_count == 2)
+    call s:JumpToWindow(2)
+ elseif (a:key ==# "o" && l:win_count > 2)
+   call s:JumpToWindow(3)
+ endif
+endfunction
+
+:map <C-H> :call TmuxPaneJumpForKey('i')<CR>
+:map <C-O> :call TmuxPaneJumpForKey('o')<CR>
+:map <C-U> :call TmuxPaneJumpForKey('u')<CR>
+
+
 " --- Plugins ---
 
 " Vundle is ace, and pulls in plugins from git repos
@@ -137,6 +165,10 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'justinmk/vim-sneak'
 
 Bundle 'tpope/vim-surround'
+nmap <leader>SS   <Plug>YSsurround " surround current line and put on new line
+nmap <leader>ss   <Plug>Yssurround " surround current line
+nmap <leader>S    <Plug>YSurround " surround selection and put on new line
+nmap <leader>s    <Plug>Ysurround " surround selection
 
 " Commenting plugin. gcc to toggle comments on current line. gc{motion} to
 " toggle comments over a selection
@@ -264,19 +296,17 @@ let g:unite_enable_start_insert = 1
 nnoremap [unite] <Nop>
 nmap <space> [unite]
 
-" nnoremap [unite]t :<C-u>Unite -no-split -buffer-name=files  file_rec/async:!<cr>
-
-"only works in current dir. annoying.
-nnoremap [unite]t :<C-u>Unite -no-split -buffer-name=files  file_rec/git<cr>
+" should investigate git grep unite filter
+nnoremap [unite]t :<C-U>Unite -no-split -buffer-name=files   file_rec/async:!<CR>
 nnoremap [unite]f :<C-u>Unite -no-split -buffer-name=files   file<cr>
 nnoremap [unite]r :<C-u>Unite -no-split -buffer-name=mru     file_mru<cr>
 nnoremap [unite]o :<C-u>Unite -no-split -buffer-name=outline outline<cr>
 nnoremap [unite]y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap [unite]b :<C-u>Unite -no-split -buffer-name=buffer  -quick-match  buffer<cr>
+nnoremap [unite]b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 nnoremap [unite]j :<C-u>Unite -no-split -buffer-name=jump    jump<cr>
-nnoremap [unite]g :<C-u>Unite -no-split -buffer-name=grep    grep:.<cr>
+nnoremap [unite]g :<C-u>Unite -buffer-name=grep              grep:.<cr>
+nnoremap [unite]G :<C-u>Unite -buffer-name=grep -resume      grep:.<cr>
 nnoremap [unite]d :<C-u>Unite -no-split -buffer-name=TODO    grep:.:-s:\(TODO\|FIXME\)<cr>
-
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
@@ -297,6 +327,26 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
 
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep', 'max_candidates', 0)
 let g:unite_source_rec_max_cache_files = 0
+
+Bundle 'skattyadz/charlie.vim'
+let g:charlie_split_here_key = 'K'
+
+Bundle 'rizzatti/dash.vim'
+:nmap <silent> <leader>D <Plug>DashGlobalSearch
+:nmap <silent> <leader>d <Plug>DashSearch
+
+Bundle 'bkad/CamelCaseMotion'
+xmap  <leader>ie    <Plug>CamelCaseMotion_ie
+omap  <leader>ie    <Plug>CamelCaseMotion_ie
+xmap  <leader>ib    <Plug>CamelCaseMotion_ib
+omap  <leader>ib    <Plug>CamelCaseMotion_ib
+xmap  <leader>iw    <Plug>CamelCaseMotion_iw
+omap  <leader>iw    <Plug>CamelCaseMotion_iw
+map   <leader>e     <Plug>CamelCaseMotion_e
+map   <leader>b     <Plug>CamelCaseMotion_b
+map   <leader>w     <Plug>CamelCaseMotion_w
+
+Bundle 'tpope/vim-ragtag'
 
 
 " " " " " " " " "
