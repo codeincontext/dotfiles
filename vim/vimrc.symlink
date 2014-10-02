@@ -129,24 +129,44 @@ inoremap <Down>  <NOP>
 
 " --- tmux ---
 
-function TmuxPaneJumpForKey(key)
-  let l:win_count = winnr('$')
-  " :echo "received " . a:key
+function! TmuxPaneJumpForKey(key)
+  " defines the window to jump to based on the number of windows and the key pressed
+  " 1st row: 1 window open. 2nd row: 2 windows. 3rd row: 3 windows
+  let l:key_to_window_mapping = [
+  \   {},
+  \   { "u": 1, "o": 2, },
+  \   { "u": 1, "i": 2, "o": 3, },
+  \ ]
 
-  if (a:key ==# "u" && l:win_count > 1)
-    call s:JumpToWindow(1)
-  elseif (a:key ==# "i" && l:win_count > 2)
-    call s:JumpToWindow(2)
-  elseif (a:key ==# "o" && l:win_count == 2)
-    call s:JumpToWindow(2)
- elseif (a:key ==# "o" && l:win_count > 2)
-   call s:JumpToWindow(3)
- endif
+  " temporarily dismiss syntastic errors list (interferes with pane count)
+  lclose
+
+  let l:max_win_count = len(l:key_to_window_mapping)
+  let l:win_count = min([winnr('$'), l:max_win_count])
+  let l:mapping_for_win_count = l:key_to_window_mapping[l:win_count - 1]
+
+  if (has_key(l:mapping_for_win_count, a:key))
+    :call s:JumpToWindow(l:mapping_for_win_count[a:key])
+  endif
 endfunction
 
-:map <C-H> :call TmuxPaneJumpForKey('i')<CR>
-:map <C-O> :call TmuxPaneJumpForKey('o')<CR>
-:map <C-U> :call TmuxPaneJumpForKey('u')<CR>
+function! s:JumpToWindow(new_window)
+  if (a:new_window !=# winnr())
+    execute a:new_window . "wincmd w"
+  endif
+endfunction
+
+let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+
+:map <silent> <C-O> :call TmuxPaneJumpForKey('o')<CR>
+:map <silent> <C-I> :call TmuxPaneJumpForKey('i')<CR>
+:map <silent> <C-U> :call TmuxPaneJumpForKey('u')<CR>
+
+:imap <C-O> <Esc><C-O>
+:imap <C-I> <Esc><C-I>
+:imap <C-U> <Esc><C-U>
 
 
 " --- Plugins ---
@@ -165,11 +185,40 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'justinmk/vim-sneak'
 
 Bundle 'tpope/vim-surround'
-nmap <leader>SS   <Plug>YSsurround " surround current line and put on new line
-nmap <leader>ss   <Plug>Yssurround " surround current line
-nmap <leader>S    <Plug>YSurround " surround selection and put on new line
-nmap <leader>s    <Plug>Ysurround " surround selection
+" Normal mode
+" -----------
+" ds  - delete a surrounding
+" cs  - change a surrounding
 
+" ys  - add a surrounding
+" yS  - add a surrounding and place the surrounded text on a new line + indent it
+" yss - add a surrounding to the whole line
+" ySs - add a surrounding to the whole line, place it on a new line + indent it
+" ySS - same as ySs
+"
+" Visual mode
+" -----------
+" s   - in visual mode, add a surrounding
+" S   - in visual mode, add a surrounding but place text on new line + indent it
+
+" cs "'     change surround from " to '
+" ds ' to delete ' quotes
+" nmap <leader>SS   <Plug>YSsurround " surround current line and put on new line
+" nmap <leader>ss   <Plug>Yssurround " surround current line
+" nmap <leader>S    <Plug>YSurround " surround selection and put on new line
+" nmap <leader>s    <Plug>Ysurround " surround selection
+
+
+" nmap ds  <Plug>Dsurround
+" nmap cs  <Plug>Csurround
+" nmap ys  <Plug>Ysurround
+" nmap yS  <Plug>YSurround
+" nmap yss <Plug>Yssurround
+" nmap ySs <Plug>YSsurround
+" nmap ySS <Plug>YSsurround
+" xmap S   <Plug>VSurround
+" xmap gS  <Plug>VgSurround
+"
 " Commenting plugin. gcc to toggle comments on current line. gc{motion} to
 " toggle comments over a selection
 Bundle 'tomtom/tcomment_vim'
@@ -322,10 +371,20 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ '.sass-cache',
       \ 'node_modules/',
       \ 'bower_components/',
-      \ 'dist/'
+      \ '\.png',
+      \ '\.svg',
+      \ '\.gif',
+      \ '\.bmp',
+      \ '\.jpg',
+      \ '\.sql',
+      \ 'log/'
       \ ], '\|'))
 
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep', 'max_candidates', 0)
+call unite#custom_source('file_rec,file_rec/async,file,grep', 'max_candidates', 0)
+" buffer is for quick jumps to recent files. 10 candidates means quick filtering
+call unite#custom_source('buffer', 'max_candidates', 10)
+" MRU is for finding a file that has been edited in the last few weeks
+call unite#custom_source('file_mru', 'max_candidates', 50)
 let g:unite_source_rec_max_cache_files = 0
 
 Bundle 'skattyadz/charlie.vim'
@@ -347,7 +406,6 @@ map   <leader>b     <Plug>CamelCaseMotion_b
 map   <leader>w     <Plug>CamelCaseMotion_w
 
 Bundle 'tpope/vim-ragtag'
-
 
 " " " " " " " " "
 " MOVING AROUND "

@@ -70,7 +70,7 @@ setw -g pane-base-index 1
 
 # top panes (vim)
 bind -n C-u run "~/tmux-switch-vim-pane.sh u"
-# C-i is the same code as Tab. I've bound it to this in iTerm instead
+# C-i is the same code as Tab. I've bound it to C-h in iTerm instead
 bind -n C-h run "~/tmux-switch-vim-pane.sh i" 
 bind -n C-o run "~/tmux-switch-vim-pane.sh o"
 
