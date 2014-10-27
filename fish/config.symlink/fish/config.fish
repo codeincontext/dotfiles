@@ -12,5 +12,11 @@ set fish_color_operator 8abeb7
 set fish_color_escape 8abeb7
 set fish_color_cwd b5bd68
 
+set fish_color_tm_selection 373b41
+
 
 set -g -x PATH /usr/local/bin $PATH
+
+#function fish_prompt
+#  ~/.dotfiles/powerline-shell.py $status --shell bare ^/dev/null
+#end

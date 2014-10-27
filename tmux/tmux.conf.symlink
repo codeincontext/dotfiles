@@ -10,6 +10,8 @@ set-option -g utf8 on
 set-option -g status-utf8 on
 
 set -g base-index 1
+set-window-option -g pane-base-index 1
+
 
 # --- fix issue in vim where # escapes --- don't know if still needed
 set-option -g escape-time 50
