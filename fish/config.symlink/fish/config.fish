@@ -13,10 +13,14 @@ set fish_color_escape 8abeb7
 set fish_color_cwd b5bd68
 
 set fish_color_tm_selection 373b41
+set fish_color_tm_background 1d1f21
 
+set -x PATH /usr/local/bin $PATH # homebrew
+set PATH $HOME/.dotfiles/bin $PATH # bins in dotfiles repo
 
-set -g -x PATH /usr/local/bin $PATH
+set -x EDITOR vim
 
-#function fish_prompt
-#  ~/.dotfiles/powerline-shell.py $status --shell bare ^/dev/null
-#end
+set fish_greeting '' # turn off greeting
+
+set -gx RBENV_ROOT /usr/local/var/rbenv
+. (rbenv init -|psub)
