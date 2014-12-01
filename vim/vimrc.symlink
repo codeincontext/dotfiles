@@ -152,6 +152,8 @@ function! TmuxPaneJumpForKey(key)
 
   " temporarily dismiss syntastic errors list (interferes with pane count)
   lclose
+  " dismiss gitgutter preview window (interferes with pane count)
+  pclose
 
   let l:max_win_count = len(l:key_to_window_mapping)
   let l:win_count = min([winnr('$'), l:max_win_count])
