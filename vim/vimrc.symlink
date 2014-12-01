@@ -181,6 +181,20 @@ let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
 :imap <C-U> <Esc><C-U>
 
 
+" Sometimes I'm editing a file and want to do something with it in a tmux pane.
+" This sets a tmux var which my fish config picks up so you can do things like:
+"   git add $V
+
+augroup SaveBufferPath
+  au!
+  au BufEnter * call s:SaveBufferPath()
+augroup END
+
+function! s:SaveBufferPath()
+    call system('tmux set-environment ACTIVE_VIM_BUFFER_PATH "'. expand('%:p') .'"')
+endfunction
+
+
 " --- Plugins ---
 
 " Vundle is ace, and pulls in plugins from git repos
