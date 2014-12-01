@@ -12,6 +12,9 @@ set showcmd
 " Use system clipboard
 set clipboard=unnamed
 
+" Allow mouse
+set mouse=a
+
 " Needed for Syntax Highlighting and stuff
 filetype on
 filetype plugin on
@@ -29,8 +32,11 @@ set smarttab
 set shiftwidth=2
 set softtabstop=2
 
-" Got backspace?
-set backspace=2
+" makefiles use tabs
+autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+
+" allow backspace across indentation and lines
+set backspace=indent,eol
 
 " show line at 80 chars
 set tw=80
@@ -313,10 +319,20 @@ let g:airline_section_y = airline#section#create_right(['filetype'])
 let g:airline#extensions#whitespace#enabled = 0
 
 
-" fugitive is a git wrapper. I don't use it as much as I should, but it's used
-" by other plugins
+" fugitive is a git wrapper. It provides a lot of functionality but I mostly
+" have it for Airline.
+"   :Gblame
+"   :Gbrowse - opens github
+"   :Gstatus - shows git status. Press - or p to commit a file
+"   :Gdiff - opens a diff for the current file
+"   :Gwrite - add current file
 Bundle "tpope/vim-fugitive"
 
+" [c and ]c to jump between hunks
+" \hs to stage
+" \hr to revert
+" \hp to preview
+Bundle 'airblade/vim-gitgutter'
 
 Bundle "elixir-lang/vim-elixir"
 Bundle 'jelera/vim-javascript-syntax'
