@@ -5,7 +5,8 @@ set-window-option -g xterm-keys on
 set -g default-terminal "screen-256color"
 set -g terminal-overrides 'xterm:colors=256'
 
-set -g default-shell "/usr/local/bin/fish"
+set-option -g default-shell "/usr/local/bin/fish"
+
 
 set-window-option -g utf8 on
 set-option -g utf8 on

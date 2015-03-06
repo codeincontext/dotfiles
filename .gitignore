@@ -5,3 +5,4 @@ atom.symlink/storage
 atom.symlink/themes
 
 git/gitconfig.symlink
+ruby/rbenv.symlink/versions

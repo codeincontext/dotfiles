@@ -1,26 +1,13 @@
+# I want to use the blue-grey colors in ocean but when you enter the hex, fish
+# only searches the 240 colours after the standard ones, skipping the bright
+# palette
+set prompt_bg_2 343D46
+set prompt_bg_1 blue
+
 #   ❯ >
 
 function prompt_pwd2 --description "Tidier pwd"
   echo $PWD | sed -e "s|^$HOME|~|"
-
-  # dividers between paths
-  # echo $PWD | sed -e "s|^$HOME|~|" | sed -e "s|/|  |g"
-  # echo $PWD | sed -e "s|^$HOME|~|" | sed -e "s|/| ❯ |g"
-
-  # to colour dividers between paths
-  # set -l dirs (echo $PWD | sed -e "s|^$HOME|~|" |tr '/' '\n')
-  # set -l first 1
-  # for dir in $dirs
-  #   if test first -eq '1'
-  #     set_color $fish_color_tm_selection
-  #     # echo -n ' ❯ '
-  #     echo -n '  '
-  #     set -l first 0
-  #   end
-  #
-  #   set_color $fish_color_tm_background
-  #   echo -n $dir
-  # end
 end
 
 function git_branch --description "Name of current git branch"
@@ -34,20 +21,21 @@ function fish_prompt --description 'Write out the prompt'
   echo # newline
 
   if not test $last_status -eq -0
-    set_color $fish_color_error -b $fish_color_operator
+    set_color red -b $prompt_bg_1
     echo -n 
   end
 
-  set_color $fish_color_tm_background -b $fish_color_operator
+  # set_color $dir_fg_color -b $fish_color_operator
+  set_color black -b $prompt_bg_1
   echo -n ' '(prompt_pwd2)' '
 
-  set_color $fish_color_operator -b $fish_color_tm_selection
+  set_color $prompt_bg_1 -b $prompt_bg_2
   echo -n 
 
-  set_color $fish_color_comment -b $fish_color_tm_selection
+  set_color $fish_color_comment
   echo -n (git_branch)
 
-  set_color $fish_color_tm_selection -b normal
+  set_color $prompt_bg_2 -b normal
   echo -n 
   set_color $fish_color_comment
 
