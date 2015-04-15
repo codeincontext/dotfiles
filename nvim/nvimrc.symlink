@@ -1,0 +1,142 @@
+" Behavioural Configuration
+""""""""""""""""""""""""""""
+
+" Assume to ignore case in searches etc
+set ignorecase
+set smartcase
+
+set incsearch
+
+"" Visual Configuration
+"""""""""""""""""""""""
+
+" Highlight matching parenthesis
+" highlight MatchParen ctermbg=4
+
+" show trailing spaces
+set list listchars=tab:\ \ ,trail:·
+
+" show line at 80 chars
+set tw=80
+set colorcolumn=+1
+
+" iterm nightlies support true color
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+"" Key Mappings
+"""""""""""""""
+
+" Unused keys: space, backspace
+
+" make Y yank to end of line (like it should always have done)
+nmap Y y$
+
+" use the enter key to enter command mode
+nmap <CR> :
+
+" don't yank the replaced text when pasting in visual mode
+vnoremap p "_dP
+
+" paste something on a new line
+:nmap <leader>p o<ESC>p
+
+" don't add to jump list when navigating by paragraph
+nnoremap <silent> { :keepjumps normal! {<CR>
+nnoremap <silent> } :keepjumps normal! }<CR>
+
+"" Plugins
+""""""""""
+
+" you'll need vim-plug installed
+call plug#begin('~/.vim/plugged')
+
+"" Plugins: Managing files
+""""""""""""""""""""""""""
+
+" Project drawer
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+map <C-n> :NERDTreeToggle<CR>
+
+" fuzzy finder
+" TODO: on
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+
+
+"" Plugins: Editing text
+""""""""""""""""""""""""
+
+" gcc to toggle comments on current line. gc{motion} to toggle comments over a selection
+Plug 'tpope/vim-commentary', { 'on': '<Plug>Commentary' }
+map  gc  <Plug>Commentary
+nmap gcc <Plug>CommentaryLine
+
+" Where ci{ changes the contents of curly braces, cir will change the contents of the current ruby block, if statement, method or class
+Plug 'textobj-user'
+Plug 'textobj-rubyblock'
+
+" TODO: on
+Plug 'skattyadz/charlie.vim'
+
+" todo: on?
+Plug 'bkad/CamelCaseMotion'
+xmap  <leader>ie    <Plug>CamelCaseMotion_ie
+omap  <leader>ie    <Plug>CamelCaseMotion_ie
+xmap  <leader>ib    <Plug>CamelCaseMotion_ib
+omap  <leader>ib    <Plug>CamelCaseMotion_ib
+xmap  <leader>iw    <Plug>CamelCaseMotion_iw
+omap  <leader>iw    <Plug>CamelCaseMotion_iw
+map   <leader>e     <Plug>CamelCaseMotion_e
+map   <leader>b     <Plug>CamelCaseMotion_b
+map   <leader>w     <Plug>CamelCaseMotion_w
+
+" consider https://github.com/junegunn/vim-easy-align
+
+
+"" Plugins: Analysing code
+""""""""""""""""""""""""""
+
+" [c and ]c to jump between hunks
+" \hs to stage
+" \hr to revert
+" \hp to preview
+Plug 'airblade/vim-gitgutter'
+
+" Code linter
+" on?
+Plug 'scrooloose/syntastic', { 'on': 'SyntasticCheck' }
+let g:syntastic_auto_jump=0
+
+" Automatic completion for variable names, etc
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'on': [] }
+command! YcmCompleter call plug#load('YouCompleteMe') | call youcompleteme#Enable() | YcmCompleter
+
+
+"" Plugins: Visual
+""""""""""""""""""
+
+" Plug 'morhetz/gruvbox'  bold function names is quite nice
+Plug 'chriskempson/base16-vim' " bold do/end keywords is annoying
+
+Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
+map  <leader>r :RainbowParentheses!!<cr>
+
+Plug 'ap/vim-css-color', { 'for': ['css', 'scss'] }
+
+call plug#end()
+
+"" Post-plugin-init config
+""""""""""""""""""""""""""
+
+set background=dark
+colorscheme base16-ocean
+" colorscheme gruvbox
+
+" open nerdtree on load if it's a directory
+if isdirectory(argv(0))
+    bd
+    autocmd vimenter * exe "cd" argv(0)
+    autocmd VimEnter * NERDTree
+endif
+
+" Close if the only thing left is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
