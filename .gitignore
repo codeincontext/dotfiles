@@ -6,3 +6,5 @@ atom.symlink/themes
 
 git/gitconfig.symlink
 ruby/rbenv.symlink/versions
+
+fish/config.symlink/fish/fish_history
