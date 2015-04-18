@@ -22,6 +22,9 @@ set smarttab
 set shiftwidth=2
 set softtabstop=2
 
+" allow backspace across indentation and lines
+set backspace=indent,eol
+
 " makefiles use tabs
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 
