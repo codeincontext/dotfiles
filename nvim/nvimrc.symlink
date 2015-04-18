@@ -91,14 +91,38 @@ nnoremap <silent> { :keepjumps normal! {<CR>
 nnoremap <silent> } :keepjumps normal! }<CR>
 
 " navigate panes
-nnoremap <silent> <leader>u <C-w>k<C-w>h<C-w>h
-nnoremap <silent> <leader>i <c-w>k<c-w>h<c-w>h<c-w>l
-nnoremap <silent> <leader>o <c-w>k<c-w>h<c-w>h<c-w>l<c-w>l
-nnoremap <silent> <leader>j <C-w>j<C-w>h<C-w>h
-nnoremap <silent> <leader>k <c-w>j<c-w>h<c-w>h<c-w>l
-nnoremap <silent> <leader>l <c-w>j<c-w>h<c-w>h<c-w>l<c-w>l
+" ctrl-a u: top left
+" ctrl-a i: top left then right one
+" ctrl-a o: top left then right two
+" ctrl-a j: bottom left
+" ctrl-a k: bottom left then right one
+" ctrl-a l: bottom left then right two
+
+nmap <silent> <c-a>u 1<c-w>w
+nmap <silent> <c-a>i 1<c-w>w<c-w>l
+nmap <silent> <c-a>o 1<c-w>w<c-w>l<c-w>l
+nmap <silent> <c-a>j 1<c-w>w<c-w>j
+nmap <silent> <c-a>k 1<c-w>w<c-w>j<c-w>l
+nmap <silent> <c-a>l 1<c-w>w<c-w>j<c-w>l<c-w>l
+
+imap <silent> <c-a>u <esc>1<c-w>w
+imap <silent> <c-a>i <esc>1<c-w>w<c-w>l
+imap <silent> <c-a>o <esc>1<c-w>w<c-w>l<c-w>l
+imap <silent> <c-a>j <esc>1<c-w>w<c-w>j
+imap <silent> <c-a>k <esc>1<c-w>w<c-w>j<c-w>l
+imap <silent> <c-a>l <esc>1<c-w>w<c-w>j<c-w>l<c-w>l
+
+tnoremap <silent> <c-a>u <c-\><c-n>1<c-w>w
+tnoremap <silent> <c-a>i <c-\><c-n>1<c-w>w<c-w>l
+tnoremap <silent> <c-a>o <c-\><c-n>1<c-w>w<c-w>l<c-w>l
+tnoremap <silent> <c-a>j <c-\><c-n>1<c-w>w<c-w>j
+tnoremap <silent> <c-a>k <c-\><c-n>1<c-w>w<c-w>j<c-w>l
+tnoremap <silent> <c-a>l <c-\><c-n>1<c-w>w<c-w>j<c-w>l<c-w>l
 
 
+" use ctrl+{ ctrl+} to scroll half a page
+nnoremap <c-{> <c-u>
+nnoremap <c-}> <c-d>
 
 
 "" Plugins
