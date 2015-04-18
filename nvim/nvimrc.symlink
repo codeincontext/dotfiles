@@ -127,11 +127,6 @@ tnoremap <silent> <c-a>k <c-\><c-n>99<c-w>w<c-w>h
 tnoremap <silent> <c-a>l <c-\><c-n>99<c-w>w
 
 
-" use ctrl+{ ctrl+} to scroll half a page
-nnoremap <c-{> <c-u>
-nnoremap <c-}> <c-d>
-
-
 "" Plugins
 """"""""""
 
