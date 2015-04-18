@@ -1,17 +1,37 @@
 " Behavioural Configuration
 """"""""""""""""""""""""""""
 
+" hide buffers instead of closing them (keeps undo buffers, etc)
+set hidden
+
+" it's the future and we have git
+set nobackup
+set noswapfile
+
 " Assume to ignore case in searches etc
 set ignorecase
 set smartcase
 
 set incsearch
 
+" Spaces > tabs
+set expandtab
+set smarttab
+
+" 2 spaces > 8 spaces
+set shiftwidth=2
+set softtabstop=2
+
+" makefiles use tabs
+autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+
+let g:terminal_scrollback_buffer_size=10000
+
 "" Visual Configuration
 """""""""""""""""""""""
 
 " Highlight matching parenthesis
-" highlight MatchParen ctermbg=4
+" highlight MatchParen ctermbg=4 " disabled while I try rainbow-parenthesis
 
 " show trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -20,13 +40,36 @@ set list listchars=tab:\ \ ,trail:·
 set tw=80
 set colorcolumn=+1
 
+" Setting both relativenumber and number enables hybrid line number mode
+set relativenumber
+set number
+
 " iterm nightlies support true color
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+let g:terminal_color_0='#2b303b'
+let g:terminal_color_1='#bf616a'
+let g:terminal_color_2='#a3be8c'
+let g:terminal_color_3='#ebcb8b'
+let g:terminal_color_4='#8fa1b3'
+let g:terminal_color_5='#b48ead'
+let g:terminal_color_6='#96b5b4'
+let g:terminal_color_7='#c0c5ce'
+let g:terminal_color_8='#65737e'
+let g:terminal_color_9='#bf616a'
+let g:terminal_color_10='#a3be8c'
+let g:terminal_color_11='#ebcb8b'
+let g:terminal_color_12='#8fa1b3'
+let g:terminal_color_13='#b48ead'
+let g:terminal_color_14='#96b5b4'
+let g:terminal_color_14='eff1f5'
 
 "" Key Mappings
 """""""""""""""
 
 " Unused keys: space, backspace
+
+let mapleader = "\<Space>"
 
 " make Y yank to end of line (like it should always have done)
 nmap Y y$
@@ -38,11 +81,22 @@ nmap <CR> :
 vnoremap p "_dP
 
 " paste something on a new line
-:nmap <leader>p o<ESC>p
+nmap \p o<ESC>p
 
 " don't add to jump list when navigating by paragraph
 nnoremap <silent> { :keepjumps normal! {<CR>
 nnoremap <silent> } :keepjumps normal! }<CR>
+
+" navigate panes
+nnoremap <silent> <leader>u <C-w>k<C-w>h<C-w>h
+nnoremap <silent> <leader>i <c-w>k<c-w>h<c-w>h<c-w>l
+nnoremap <silent> <leader>o <c-w>k<c-w>h<c-w>h<c-w>l<c-w>l
+nnoremap <silent> <leader>j <C-w>j<C-w>h<C-w>h
+nnoremap <silent> <leader>k <c-w>j<c-w>h<c-w>h<c-w>l
+nnoremap <silent> <leader>l <c-w>j<c-w>h<c-w>h<c-w>l<c-w>l
+
+
+
 
 "" Plugins
 """"""""""
@@ -58,8 +112,9 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 map <C-n> :NERDTreeToggle<CR>
 
 " fuzzy finder
-" TODO: on
+" TODO: on-demand
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+map <leader>t :FZF<cr>
 
 
 "" Plugins: Editing text
@@ -74,20 +129,20 @@ nmap gcc <Plug>CommentaryLine
 Plug 'textobj-user'
 Plug 'textobj-rubyblock'
 
-" TODO: on
+" TODO: on-demand
 Plug 'skattyadz/charlie.vim'
 
-" todo: on?
+" todo: on-demand?
 Plug 'bkad/CamelCaseMotion'
-xmap  <leader>ie    <Plug>CamelCaseMotion_ie
-omap  <leader>ie    <Plug>CamelCaseMotion_ie
-xmap  <leader>ib    <Plug>CamelCaseMotion_ib
-omap  <leader>ib    <Plug>CamelCaseMotion_ib
-xmap  <leader>iw    <Plug>CamelCaseMotion_iw
-omap  <leader>iw    <Plug>CamelCaseMotion_iw
-map   <leader>e     <Plug>CamelCaseMotion_e
-map   <leader>b     <Plug>CamelCaseMotion_b
-map   <leader>w     <Plug>CamelCaseMotion_w
+xmap  \ie    <Plug>CamelCaseMotion_ie
+omap  \ie    <Plug>CamelCaseMotion_ie
+xmap  \ib    <Plug>CamelCaseMotion_ib
+omap  \ib    <Plug>CamelCaseMotion_ib
+xmap  \iw    <Plug>CamelCaseMotion_iw
+omap  \iw    <Plug>CamelCaseMotion_iw
+map   \e     <Plug>CamelCaseMotion_e
+map   \b     <Plug>CamelCaseMotion_b
+map   \w     <Plug>CamelCaseMotion_w
 
 " consider https://github.com/junegunn/vim-easy-align
 
@@ -118,7 +173,7 @@ command! YcmCompleter call plug#load('YouCompleteMe') | call youcompleteme#Enabl
 Plug 'chriskempson/base16-vim' " bold do/end keywords is annoying
 
 Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
-map  <leader>r :RainbowParentheses!!<cr>
+map <silent> <leader>r :RainbowParentheses!!<cr>
 
 Plug 'ap/vim-css-color', { 'for': ['css', 'scss'] }
 

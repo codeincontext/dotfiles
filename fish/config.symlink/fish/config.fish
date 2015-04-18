@@ -1,11 +1,9 @@
-
-# Base16 Shell
-# eval sh $HOME/.config/base16-shell/base16-ocean.dark.sh
+eval sh $HOME/.config/base16-shell/base16-ocean.dark.sh
 
 set -x PATH /usr/local/bin $PATH # homebrew
 set PATH $HOME/.dotfiles/bin $PATH # bins in dotfiles repo
 
-set -x EDITOR vim
+set -x EDITOR nvim
 set -x RBENV_VERSION
 
 set fish_greeting '' # turn off greeting
