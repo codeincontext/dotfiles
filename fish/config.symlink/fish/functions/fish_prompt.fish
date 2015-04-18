@@ -2,7 +2,7 @@
 # only searches the 240 colours after the standard ones, skipping the bright
 # palette
 set prompt_bg_2 343D46
-set prompt_bg_1 blue
+set prompt_bg_1 90A1B2
 
 #   ❯ >
 

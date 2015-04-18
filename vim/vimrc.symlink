@@ -423,7 +423,6 @@ nnoremap [unite]r :<C-u>Unite -no-split -buffer-name=mru     file_mru<cr>
 nnoremap [unite]o :<C-u>Unite -no-split -buffer-name=outline outline<cr>
 nnoremap [unite]y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
 nnoremap [unite]b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-nnoremap [unite]j :<C-u>Unite -no-split -buffer-name=jump    jump<cr>
 nnoremap [unite]g :<C-u>Unite -buffer-name=grep              grep:.<cr>
 nnoremap [unite]G :<C-u>Unite -buffer-name=grep -resume      grep:.<cr>
 nnoremap [unite]d :<C-u>Unite -no-split -buffer-name=TODO    grep:.:-s:\(TODO\|FIXME\)<cr>
@@ -483,6 +482,7 @@ map   <leader>e     <Plug>CamelCaseMotion_e
 map   <leader>b     <Plug>CamelCaseMotion_b
 map   <leader>w     <Plug>CamelCaseMotion_w
 
+" <C-X>/ to close current HTML tag
 Bundle 'tpope/vim-ragtag'
 
 filetype plugin indent on    " required
