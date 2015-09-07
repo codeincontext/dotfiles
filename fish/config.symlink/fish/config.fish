@@ -6,6 +6,8 @@ set PATH $HOME/.dotfiles/bin $PATH # bins in dotfiles repo
 set -x EDITOR nvim
 set -x RBENV_VERSION
 
+set -x FZF_DEFAULT_COMMAND 'ag -l -g ""'
+
 set fish_greeting '' # turn off greeting
 
 # my vim config prints an ACTIVE_VIM_BUFFFER_PATH session env. We want this to
