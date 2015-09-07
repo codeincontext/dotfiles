@@ -1,6 +1,12 @@
 " Behavioural Configuration
 """"""""""""""""""""""""""""
 
+" without this, GitGutter slows down
+" with it, new terms open in bash :/
+set shell=/bin/bash
+
+set mouse=a
+
 " hide buffers instead of closing them (keeps undo buffers, etc)
 set hidden
 
@@ -29,6 +35,7 @@ set backspace=indent,eol
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 
 let g:terminal_scrollback_buffer_size=10000
+
 
 "" Visual Configuration
 """""""""""""""""""""""
@@ -70,9 +77,24 @@ let g:terminal_color_14='eff1f5'
 "" Key Mappings
 """""""""""""""
 
-" Unused keys: space, backspace
+" leader for loading plugins like file navigation and overlays
+" - for custom text editing commands like camelCaseMotion
+map <Space> <Leader>
 
-let mapleader = "\<Space>"
+
+nmap <leader>s :terminal fish<CR>
+
+" use leader for window movement stuff
+" nnoremap <space>h <c-w>h
+" nnoremap <space>j <c-w>j
+" nnoremap <space>k <c-w>k
+" nnoremap <space>l <c-w>l
+
+nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+
+" open the buffer in a new fullscreen tab (like tmux's <ctrl-a>z)
+noremap <leader>z :tab split<CR>
 
 " make Y yank to end of line (like it should always have done)
 nmap Y y$
@@ -84,47 +106,31 @@ nmap <CR> :
 vnoremap p "_dP
 
 " paste something on a new line
-nmap \p o<ESC>p
+nmap -p o<ESC>p
 
 " don't add to jump list when navigating by paragraph
 nnoremap <silent> { :keepjumps normal! {<CR>
 nnoremap <silent> } :keepjumps normal! }<CR>
 
+nnoremap <BS> <C-o>
+nnoremap <s-BS> <C-i>
 
 "" Fast pane switching
 """"""""""""""""""""""
 
-" press ctrl-a then one of the letters u,i,o,j,k,l to jump to that pane
-" look at the keyboard to see the grid. u is top left, l is bottom right
-
+" should add 1 if nerdtree's open
 " top left
-nmap <silent> <c-a>u 1<c-w>w
+nmap <silent> <leader>u 1<c-w>w
 " top left then right one
-nmap <silent> <c-a>i 1<c-w>w<c-w>l
-" bottom right then up one
-nmap <silent> <c-a>o 99<c-w>w<c-w>k
-" top left then down one
-nmap <silent> <c-a>j 1<c-w>w<c-w>j
+nmap <silent> <leader>i 1<c-w>w<c-w>l
+" top left then right two
+nmap <silent> <leader>o 1<c-w>w<c-w>l<c-w>l
+" bottom right then left two
+nmap <silent> <leader>j 99<c-w>w<c-w>h<c-w>h
 " bottom right then left one
-nmap <silent> <c-a>k 99<c-w>w<c-w>h
+nmap <silent> <leader>k 99<c-w>w<c-w>h
 " bottom right
-nmap <silent> <c-a>l 99<c-w>w
-
-" mapped for insert mode
-imap <silent> <c-a>u <esc>1<c-w>w
-imap <silent> <c-a>i <esc>1<c-w>w<c-w>l
-imap <silent> <c-a>o <esc>99<c-w>w<c-w>k
-imap <silent> <c-a>j <esc>1<c-w>w<c-w>j
-imap <silent> <c-a>k <esc>99<c-w>w<c-w>h
-imap <silent> <c-a>l <esc>99<c-w>w
-
-" mapped for terminal mode
-tnoremap <silent> <c-a>u <c-\><c-n>1<c-w>w
-tnoremap <silent> <c-a>i <c-\><c-n>1<c-w>w<c-w>l
-tnoremap <silent> <c-a>o <c-\><c-n>99<c-w>w<c-w>k
-tnoremap <silent> <c-a>j <c-\><c-n>1<c-w>w<c-w>j
-tnoremap <silent> <c-a>k <c-\><c-n>99<c-w>w<c-w>h
-tnoremap <silent> <c-a>l <c-\><c-n>99<c-w>w
+nmap <silent> <leader>l 99<c-w>w
 
 
 "" Plugins
@@ -138,7 +144,7 @@ call plug#begin('~/.vim/plugged')
 
 " Project drawer
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-map <C-n> :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 " fuzzy finder
 " TODO: on-demand
@@ -163,15 +169,15 @@ Plug 'skattyadz/charlie.vim'
 
 " todo: on-demand?
 Plug 'bkad/CamelCaseMotion'
-xmap  \ie    <Plug>CamelCaseMotion_ie
-omap  \ie    <Plug>CamelCaseMotion_ie
-xmap  \ib    <Plug>CamelCaseMotion_ib
-omap  \ib    <Plug>CamelCaseMotion_ib
-xmap  \iw    <Plug>CamelCaseMotion_iw
-omap  \iw    <Plug>CamelCaseMotion_iw
-map   \e     <Plug>CamelCaseMotion_e
-map   \b     <Plug>CamelCaseMotion_b
-map   \w     <Plug>CamelCaseMotion_w
+xmap  i-e    <Plug>CamelCaseMotion_ie
+omap  i-e    <Plug>CamelCaseMotion_ie
+xmap  i-b    <Plug>CamelCaseMotion_ib
+omap  i-b    <Plug>CamelCaseMotion_ib
+xmap  i-w    <Plug>CamelCaseMotion_iw
+omap  i-w    <Plug>CamelCaseMotion_iw
+map   -e     <Plug>CamelCaseMotion_e
+map   -b     <Plug>CamelCaseMotion_b
+map   -w     <Plug>CamelCaseMotion_w
 
 " consider https://github.com/junegunn/vim-easy-align
 
@@ -180,9 +186,9 @@ map   \w     <Plug>CamelCaseMotion_w
 """"""""""""""""""""""""""
 
 " [c and ]c to jump between hunks
-" \hs to stage
-" \hr to revert
-" \hp to preview
+" <leader>hs to stage
+" <leader>hr to revert
+" <leader>hp to preview
 Plug 'airblade/vim-gitgutter'
 
 " Code linter
@@ -202,9 +208,16 @@ command! YcmCompleter call plug#load('YouCompleteMe') | call youcompleteme#Enabl
 Plug 'chriskempson/base16-vim' " bold do/end keywords is annoying
 
 Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 map <silent> <leader>r :RainbowParentheses!!<cr>
 
 Plug 'ap/vim-css-color', { 'for': ['css', 'scss'] }
+
+" highlights one letter of each word that you can jump to with f
+Plug 'unblevable/quick-scope'
+
+" nmap <leader>q <plug>(QuickScopeToggle)
+" vmap <leader>q <plug>(QuickScopeToggle)
 
 call plug#end()
 
