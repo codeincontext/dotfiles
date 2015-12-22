@@ -14,6 +14,9 @@ set hidden
 set nobackup
 set noswapfile
 
+" Auto-reload modified files (with no local changes)
+set autoread
+
 " Assume to ignore case in searches etc
 set ignorecase
 set smartcase
@@ -24,15 +27,19 @@ set incsearch
 set expandtab
 set smarttab
 
-" 2 spaces > 8 spaces
-set shiftwidth=2
-set softtabstop=2
-
 " allow backspace across indentation and lines
 set backspace=indent,eol
 
+" Delete comment character when joining commented lines
+set formatoptions+=j
+
+
+" Following disabled while I try sleuth
+" 2 spaces > 8 spaces
+" set shiftwidth=2
+" set softtabstop=2
 " makefiles use tabs
-autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+" autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 
 let g:terminal_scrollback_buffer_size=10000
 
@@ -49,6 +56,8 @@ set list listchars=tab:\ \ ,trail:·
 " show line at 80 chars
 set tw=80
 set colorcolumn=+1
+" don't hard wrap text at the 80 char point
+set formatoptions-=t
 
 " Setting both relativenumber and number enables hybrid line number mode
 set relativenumber
@@ -84,14 +93,8 @@ map <Space> <Leader>
 
 nmap <leader>s :terminal fish<CR>
 
-" use leader for window movement stuff
-" nnoremap <space>h <c-w>h
-" nnoremap <space>j <c-w>j
-" nnoremap <space>k <c-w>k
-" nnoremap <space>l <c-w>l
-
-nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
-nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+nnoremap  <silent> <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+nnoremap  <silent>  <BS>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
 " open the buffer in a new fullscreen tab (like tmux's <ctrl-a>z)
 noremap <leader>z :tab split<CR>
@@ -112,8 +115,12 @@ nmap -p o<ESC>p
 nnoremap <silent> { :keepjumps normal! {<CR>
 nnoremap <silent> } :keepjumps normal! }<CR>
 
-nnoremap <BS> <C-o>
-nnoremap <s-BS> <C-i>
+if bufwinnr(1)
+  map + 3<C-W>+
+  map _ 3<C-W>-
+endif
+
+set splitbelow
 
 "" Fast pane switching
 """"""""""""""""""""""
@@ -122,9 +129,11 @@ nnoremap <s-BS> <C-i>
 " top left
 nmap <silent> <leader>u 1<c-w>w
 " top left then right one
-nmap <silent> <leader>i 1<c-w>w<c-w>l
+" nmap <silent> <leader>i 1<c-w>w<c-w>l
+" Adding the k to avoid ambiguity when moving from nerdtree
+nmap <silent> <leader>i 1<c-w>w<c-w>l<c-w>k
 " top left then right two
-nmap <silent> <leader>o 1<c-w>w<c-w>l<c-w>l
+nmap <silent> <leader>o 1<c-w>w<c-w>l<c-w>k<c-w>l
 " bottom right then left two
 nmap <silent> <leader>j 99<c-w>w<c-w>h<c-w>h
 " bottom right then left one
@@ -132,28 +141,75 @@ nmap <silent> <leader>k 99<c-w>w<c-w>h
 " bottom right
 nmap <silent> <leader>l 99<c-w>w
 
-
 "" Plugins
 """"""""""
 
 " you'll need vim-plug installed
 call plug#begin('~/.vim/plugged')
 
+
+" Plugins I could have:
+" indentLine: shows indent level with a thin line
+" vim-visual-increment: When you need incrementing numbers across multiple lines
+" zoomwin: Zooms one pane to full size. Like I'm doing now but assuming better
+
 "" Plugins: Managing files
 """"""""""""""""""""""""""
 
 " Project drawer
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" let NERDTreeHijackNetrw=1
+let NERDTreeQuitOnOpen=1
 map <leader>n :NERDTreeToggle<CR>
+" reveal the current file in NERDTree
+map <Leader>N :NERDTreeFind<CR>
+" Plug 'dhruvasagar/vim-vinegar'
 
 " fuzzy finder
 " TODO: on-demand
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 map <leader>t :FZF<cr>
 
+" find in project
+Plug 'dyng/ctrlsf.vim'
+" Prompt for search term
+nmap     <leader>f <Plug>CtrlSFPrompt
+" Search selected term
+vmap     <leader>f <Plug>CtrlSFVwordExec
+
+nnoremap <leader>F :CtrlSFToggle<CR>
+
+let g:ctrlsf_mapping = {
+    \ "next": "n",
+    \ "prev": "N",
+    \ }
+
+" vmap     <leader>ff <Plug>CtrlSFVwordPath
+" nmap     <leader>fn <Plug>CtrlSFCwordPath
+" nmap     <leader>fp <Plug>CtrlSFPwordPath
+" nnoremap <leader>fo :CtrlSFOpen<CR>
+" inoremap <leader>ft <Esc>:CtrlSFToggle<CR>
+
 
 "" Plugins: Editing text
 """"""""""""""""""""""""
+
+" Binds lots of (next|previous) shortcuts to the [ and ] keys
+" eg: [l and ]l for location list
+"     [<Space> and ]<Space> add newlines before and after the cursor line
+"     [e and ]e to exchange the current line with [count] lines above it.
+" It also has some pasting and encoding shortcuts I don't use
+Plug 'tpope/vim-unimpaired'
+
+" Autocloses brackets, etc
+Plug 'cohama/lexima.vim'
+
+Plug 'junegunn/vim-easy-align'
+" normal mode: ga then character to align on
+" gaip= to align in paragraph on equals sign
+
+" Detects file's indentation
+Plug 'tpope/vim-sleuth'
 
 " gcc to toggle comments on current line. gc{motion} to toggle comments over a selection
 Plug 'tpope/vim-commentary', { 'on': '<Plug>Commentary' }
@@ -168,6 +224,8 @@ Plug 'textobj-rubyblock'
 Plug 'skattyadz/charlie.vim'
 
 " todo: on-demand?
+" I can't remember why I switched this from \ to -. Maybe for ANSI keyboard
+" compatibility
 Plug 'bkad/CamelCaseMotion'
 xmap  i-e    <Plug>CamelCaseMotion_ie
 omap  i-e    <Plug>CamelCaseMotion_ie
@@ -181,6 +239,13 @@ map   -w     <Plug>CamelCaseMotion_w
 
 " consider https://github.com/junegunn/vim-easy-align
 
+Plug 'junegunn/vim-after-object'
+" va=  visual after =
+" ca=  change after =
+" da=  delete after =
+" ya=  yank after =
+autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
+
 
 "" Plugins: Analysing code
 """"""""""""""""""""""""""
@@ -192,13 +257,32 @@ map   -w     <Plug>CamelCaseMotion_w
 Plug 'airblade/vim-gitgutter'
 
 " Code linter
-" on?
-Plug 'scrooloose/syntastic', { 'on': 'SyntasticCheck' }
-let g:syntastic_auto_jump=0
+
+
+
+Plug 'benekastah/neomake', { 'on': 'Neomake' }
+autocmd! BufWritePost * Neomake
+" current error is displayed in status bar
+" jump to next error with [l and ]l (from vim-unimpaired)
+
+" let g:neomake_open_list = 2
+" let g:neomake_list_height = 5
+
+" work out how many of these are already defined as defaults
+let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+let g:neomake_jsx_enabled_makers  = ['eslint', 'flow']
+let g:neomake_vim_enabled_makers  = ['vint']
+let g:neomake_scss_enabled_makers = ['scsslint']
+let g:neomake_error_sign   = { 'texthl': 'SignifySignDelete' }
+let g:neomake_warning_sign = { 'texthl': 'SignifySignChange' }
+" run this to see highlight groups: :so $VIMRUNTIME/syntax/hitest.vim
+
 
 " Automatic completion for variable names, etc
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'on': [] }
-command! YcmCompleter call plug#load('YouCompleteMe') | call youcompleteme#Enable() | YcmCompleter
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+autocmd! User YouCompleteMe call youcompleteme#Enable()
+set pumheight=6
+" could add C, typescript, or Go semantic support
 
 
 "" Plugins: Visual
@@ -215,9 +299,12 @@ Plug 'ap/vim-css-color', { 'for': ['css', 'scss'] }
 
 " highlights one letter of each word that you can jump to with f
 Plug 'unblevable/quick-scope'
+" let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" nmap <leader>q <plug>(QuickScopeToggle)
-" vmap <leader>q <plug>(QuickScopeToggle)
+Plug 'pangloss/vim-javascript' " required by vim-jsx
+Plug 'mxw/vim-jsx'
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
 
 call plug#end()
 
