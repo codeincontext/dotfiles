@@ -1,4 +1,9 @@
-# holman does dotfiles
+# adz does dotfiles
+
+Text below is from the original repo. My changes:
+
+- Install my tools and apps through a brewfile
+- Replace ZSH for fish
 
 ## dotfiles
 
