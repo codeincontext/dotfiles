@@ -20,6 +20,6 @@ brew tap Homebrew/bundle
 mv ~/.Brewfile ~/Brewfile 2>/dev/null # because bootstrap prepends a dot in the filename
 
 # Here because it won't be symlinked on first run
-brew bundle --file=homebrew/Brewfile
+brew bundle --file=homebrew/Brewfile.symlink
 
 exit 0
