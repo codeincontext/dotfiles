@@ -15,7 +15,11 @@ fi
 
 # Install homebrew packages
 brew tap Homebrew/bundle
+
+# think this only does something on second run
 mv ~/.Brewfile ~/Brewfile 2>/dev/null # because bootstrap prepends a dot in the filename
-brew bundle --file=~/Brewfile
+
+# Here because it won't be symlinked on first run
+brew bundle --file=homebrew/Brewfile
 
 exit 0
