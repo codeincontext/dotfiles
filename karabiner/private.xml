@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<root>
+  <item>
+    <name>Map COMMAND_R to neovim escape</name>
+    <identifier>private.neovim_escape</identifier>
+    <only>TERMINAL</only>
+    <autogen>
+      __KeyToKey__
+      KeyCode::COMMAND_R,
+      KeyCode::BACKSLASH, ModifierFlag::CONTROL_L,
+      KeyCode::N, ModifierFlag::CONTROL_L
+    </autogen>
+  </item>
+</root>
