@@ -14,12 +14,7 @@ then
 fi
 
 # Install homebrew packages
-brew tap Homebrew/bundle
-
-# think this only does something on second run
-mv ~/.Brewfile ~/Brewfile 2>/dev/null # because bootstrap prepends a dot in the filename
-
-# Here because it won't be symlinked on first run
-brew bundle --file=homebrew/Brewfile.symlink
+echo "› brew bundle"
+brew bundle --file=homebrew/Brewfile
 
 exit 0
