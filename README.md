@@ -4,6 +4,11 @@ Text below is from the original repo. My changes:
 
 - Install my tools and apps through a brewfile
 - Replace ZSH for fish
+- Disable the desktop
+- (optional) Symlink Documents and Dropbox folders
+
+
+-------
 
 Your dotfiles are how you personalize your system. These are mine.
 
