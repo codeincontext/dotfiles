@@ -8,6 +8,7 @@ tap 'homebrew/science'
 tap 'homebrew/versions'
 tap 'neovim/neovim'
 
+brew 'archey'
 brew 'autojump'
 brew 'erlang'
 brew 'elixir'
