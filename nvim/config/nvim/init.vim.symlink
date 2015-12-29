@@ -205,8 +205,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'cohama/lexima.vim'
 
 Plug 'junegunn/vim-easy-align'
-" normal mode: ga then character to align on
-" gaip= to align in paragraph on equals sign
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Detects file's indentation
 Plug 'tpope/vim-sleuth'
