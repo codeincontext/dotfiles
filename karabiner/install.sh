@@ -1,3 +1,4 @@
 #!/bin/sh
 
-ln -s ~/.dotfiles/karabiner/private.xml ~/Library/Application\ Support/Karabiner/private.xml
+rm ~/Library/Application\ Support/Karabiner/private.xml
+ln -s "$(pwd)/karabiner/private.xml" ~/Library/Application\ Support/Karabiner
