@@ -19,6 +19,18 @@ set fish_greeting '' # turn off greeting
 #   end
 # end
 
+function set_abbreviations
+  abbr -a ga   git add
+  abbr -a gap  git add -p
+  abbr -a gco  git checkout
+  abbr -a gcm  git commit
+  abbr -a gcmm git commit -m
+  abbr -a gs   git status -s
+  abbr -a gb   git branch
+end
+
+set_abbreviations
+
 set -u fish_user_paths $fish_user_paths /usr/local/var/rbenv/shims
 set -gx RBENV_ROOT /usr/local/var/rbenv
 # . (rbenv init -|psub)
