@@ -4,7 +4,7 @@ set -x PATH /usr/local/bin $PATH # homebrew
 set PATH $HOME/.dotfiles/bin $PATH # bins in dotfiles repo
 
 set -x EDITOR nvim
-set -x RBENV_VERSION
+# set -x RBENV_VERSION
 
 set -x FZF_DEFAULT_COMMAND 'ag -l -g ""'
 
