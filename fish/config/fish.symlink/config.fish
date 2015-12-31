@@ -1,4 +1,18 @@
-eval sh $HOME/.config/base16-shell/base16-ocean.dark.sh
+if status --is-interactive
+  eval sh $HOME/.config/base16-shell/base16-ocean.dark.sh
+
+# defaults
+# set -g fish_color_autosuggestion    555 yellow
+# set -g fish_color_command           005fd7 purple
+# set -g fish_color_param             00afff cyan
+# set -g fish_pager_color_description 555 yellow
+
+# defaults with specific colors removed
+set -g fish_color_autosuggestion    4f5b66 # Base 02
+set -g fish_color_command           blue
+set -g fish_color_param             cyan
+set -g fish_pager_color_description yellow
+end
 
 set -x PATH /usr/local/bin $PATH # homebrew
 set PATH $HOME/.dotfiles/bin $PATH # bins in dotfiles repo
@@ -22,11 +36,15 @@ set fish_greeting '' # turn off greeting
 function set_abbreviations
   abbr -a ga   git add
   abbr -a gap  git add -p
+  abbr -a gc   git commit
+  abbr -a gcm  git commit -m
   abbr -a gco  git checkout
-  abbr -a gcm  git commit
-  abbr -a gcmm git commit -m
   abbr -a gs   git status -s
   abbr -a gb   git branch
+  abbr -a gd   git diff
+
+  abbr -a .. cd ..
+  abbr -a ll ls -ll
 end
 
 set_abbreviations
