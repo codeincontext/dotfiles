@@ -1,8 +1,8 @@
 # I want to use the blue-grey colors in ocean but when you enter the hex, fish
 # only searches the 240 colours after the standard ones, skipping the bright
 # palette
-set prompt_bg_2 343D46
-set prompt_bg_1 90A1B2
+set prompt_bg_2 343D46 # base 01
+set prompt_bg_1 96B5B4 # cyan
 
 #   ❯ >
 
