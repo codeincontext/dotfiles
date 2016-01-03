@@ -18,7 +18,7 @@ brew 'fzf', args: ['HEAD']
 brew 'gcc'
 brew 'hub'
 brew 'imagemagick'
-brew 'node'
+brew 'n' # node version manager
 brew 'keybase'
 brew 'mitmproxy'
 brew 'phantomjs'

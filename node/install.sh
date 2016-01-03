@@ -1,3 +1,5 @@
+n latest
+
 # A place for node modules
 # if test ! $(which spoof)
 # then
