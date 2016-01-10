@@ -36,8 +36,8 @@ set formatoptions+=j
 
 " Following disabled while I try sleuth
 " 2 spaces > 8 spaces
-" set shiftwidth=2
-" set softtabstop=2
+set shiftwidth=2
+set softtabstop=2
 " makefiles use tabs
 " autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 
@@ -90,7 +90,6 @@ let g:terminal_color_14='eff1f5'
 " - for custom text editing commands like camelCaseMotion
 map <Space> <Leader>
 
-
 nmap <leader>s :terminal fish<CR>
 
 nnoremap  <silent> <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
@@ -114,6 +113,9 @@ nmap -p o<ESC>p
 " don't add to jump list when navigating by paragraph
 nnoremap <silent> { :keepjumps normal! {<CR>
 nnoremap <silent> } :keepjumps normal! }<CR>
+
+" Clear search highlighting when pressing /. Escape afterwards if you don't need to search again
+nnoremap / :noh<CR>/
 
 if bufwinnr(1)
   map + 3<C-W>+
@@ -172,6 +174,7 @@ map <leader>t :FZF<cr>
 
 " find in project
 Plug 'dyng/ctrlsf.vim'
+
 " Prompt for search term
 nmap     <leader>f <Plug>CtrlSFPrompt
 " Search selected term
