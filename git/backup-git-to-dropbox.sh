@@ -10,13 +10,13 @@ cat<<HELP
 dropbox-git-remote -- Takes a project folder and creates a Git repository for it on Dropbox
 
 USAGE:
-    ./projects_to_git.sh file1 file2 ..
+    ./dropbox-git-remote.sh file1 file2 ..
 
 EXAMPLES:
-    ./projects_to_git.sh path/to/MyProjectDir
+    ./dropbox-git-remote.sh path/to/MyProjectDir
         Creates a git project called MyProjectDir on Dropbox
 
-    ./projects_to_git.sh path/to/workspace/*
+    ./dropbox-git-remote.sh path/to/workspace/*
         Creates a git project on Dropbox for every folder contained within the workspace directory, where the project name matches the folder name
 
 HELP
@@ -26,9 +26,9 @@ fi
 START_DIR=$(pwd)
 
 if [ -d ~/Dropbox ] ; then
-    if [ ! -d ~/Dropbox/git ] ; then
-        echo "Dropbox Git directory created."
-        mkdir ~/Dropbox/git
+    if [ ! -d ~/Dropbox/Repos ] ; then
+        mkdir ~/Dropbox/Repos
+        echo "Dropbox Repos directory created."
     fi
 else
     echo "You do not have a Dropbox folder at ~/Dropbox! Install Dropbox. Aborting..."
@@ -42,17 +42,19 @@ do
         PROJNAME=$(basename $PROJ)
         echo "  Processing $PROJNAME..."
 
+        REPO_PATH=~/Dropbox/Repos/$PROJNAME.git
+
         cd $PROJ
         if [ -d .git ] ; then
-            if [ -d ~/Dropbox/git/$PROJNAME.git ] ; then
-                echo "    $PROJNAME already exists in Git. Just pushing"
+            if [ -d REPO_PATH ] ; then
+                echo "    $PROJNAME repo already exists. Just pushing"
                 # Assume remote is already connected
-                git push -q dropbox master
+                git push -q --all dropbox
             else
                 echo "    Creating Dropbox remote for $PROJNAME"
-                git init --bare -q ~/Dropbox/git/$PROJNAME.git
-                git remote add dropbox ~/Dropbox/git/$PROJNAME
-                git push -q -u dropbox master
+                git init --bare -q REPO_PATH
+                git remote add dropbox REPO_PATH
+                git push -q --all dropbox
             fi
         else
             echo "    Not a git repo: $PROJNAME"
