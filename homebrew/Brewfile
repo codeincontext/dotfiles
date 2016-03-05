@@ -38,6 +38,7 @@ brew 'watch'
 brew 'caskroom/cask/brew-cask'
 brew 'homebrew/dupes/apple-gcc42'
 brew 'neovim/neovim/neovim', args: ['HEAD']
+brew 'heroku-toolbelt'
 
 cask 'vagrant'
 cask '1password'
@@ -48,6 +49,7 @@ cask 'anvil'
 cask 'bartender'
 cask 'beamer'
 cask 'caffeine'
+cask 'caprine' # fb messenger
 cask 'colorsnapper'
 cask 'cloak'
 cask 'cloud'
@@ -57,6 +59,7 @@ cask 'duet'
 cask 'flux'
 cask 'font-office-code-pro'
 cask 'google-chrome'
+cask 'imageoptim'
 # cask 'iterm2'
 cask 'iterm2-nightly' # for truecolor
 cask 'karabiner'
