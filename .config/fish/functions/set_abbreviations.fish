@@ -27,6 +27,8 @@ function set_abbreviations
   abbr -a gri   git rebase --interactive
   abbr -a hpr   git push origin head\; and hub pull-request
 
+  abbr -a dotfiles /usr/bin/git --git-dir=$HOME/dotfiles.git/ --work-tree=$HOME
+
   abbr -a .. cd ..
   abbr -a ll ls -ll
 end
