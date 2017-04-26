@@ -39,15 +39,8 @@ values."
      markdown
      (ruby :variables ruby-test-runner 'rspec ruby-version-manager 'rvm)
      html
-     javascript
      evil-little-word
      aj-javascript
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     ;; helm
      ivy
      auto-completion
      ;; better-defaults
@@ -66,7 +59,6 @@ values."
                        version-control-diff-tool 'git-gutter+)
      github
      emoji
-     ;; react
      vinegar
      theming
      )
@@ -353,7 +345,6 @@ you should place your code here."
 
   ;; Make underscores part of a word
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-  (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
   ;; use fuzzy matching in ivy powered by flx
   (setq ivy-re-builders-alist
@@ -371,30 +362,12 @@ you should place your code here."
                       )))
 
   (setq-default
-   ;; js2-mode
-   js2-basic-offset 2
-   react-mode-offset 2
    ;; web-mode
    css-indent-offset 2
    web-mode-markup-indent-offset 2
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
-
-  ;; https://gist.github.com/jlindsey/213b8eacd6b418f96e8dafa29c6d60f6
-  (defun my/use-eslint-from-node-modules ()
-    (let* ((root (locate-dominating-file
-                  (or (buffer-file-name) default-directory)
-                  (lambda (dir) (file-executable-p
-                                 (expand-file-name "node_modules/.bin/eslint"
-                                                   dir)))))
-           (eslint (and root
-                        (expand-file-name "node_modules/.bin/eslint"
-                                          root))))
-      (when (and eslint (file-executable-p eslint))
-        (setq-local flycheck-javascript-eslint-executable eslint))))
-  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-  )
+   web-mode-attr-indent-offset 2))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
