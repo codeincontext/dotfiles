@@ -29,6 +29,10 @@
        js2-strict-trailing-comma-warning nil
        js2-strict-missing-semi-warning nil)
 
+      (advice-add #'js-jsx-indent-line
+                  :after
+                  #'aj-javascript/js-jsx-indent-line-align-closing-bracket)
+
       (add-hook 'rjsx-mode-hook #'aj-javascript/eslintd-set-flycheck-executable t))
     :config
     (modify-syntax-entry ?_ "w" js2-mode-syntax-table)))
@@ -37,8 +41,12 @@
   (use-package add-node-modules-path
     :defer t
     :init
-    (with-eval-after-load 'rjsx-mode
-      (add-hook 'rjsx-mode-hook #'add-node-modules-path))))
+    (progn
+      (add-hook 'web-typescript-mode-hook #'add-node-modules-path)
+      (add-hook 'web-mode-hook #'add-node-modules-path)
+      (add-hook 'typescript-mode-hook #'add-node-modules-path)
+      (with-eval-after-load 'rjsx-mode
+        (add-hook 'rjsx-mode-hook #'add-node-modules-path)))))
 
 (defun aj-javascript/post-init-flycheck ()
   (with-eval-after-load 'flycheck
@@ -46,21 +54,9 @@
     (push 'json-jsonlint flycheck-disabled-checkers))
 
   (spacemacs/add-flycheck-hook 'rjsx-mode))
+  ;; (spacemacs/enable-flycheck 'rjsx-mode))
 
 (defun react-tag-fix ()
   (define-key evil-insert-state-map (kbd "C-d") nil))
 
 (add-hook 'js-mode-hook 'react-tag-fix)
-
-;; http://blog.binchen.org/posts/indent-jsx-in-emacs.html
-(defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
-  "Workaround sgml-mode and follow airbnb component style."
-  (let* ((cur-line (buffer-substring-no-properties
-                    (line-beginning-position)
-                    (line-end-position))))
-    (if (string-match "^\\( +\\)\/?> *$" cur-line)
-        (let* ((empty-spaces (match-string 1 cur-line)))
-          (replace-regexp empty-spaces
-                          (make-string (- (length empty-spaces) sgml-basic-offset) 32)
-                          nil
-                          (line-beginning-position) (line-end-position))))))
