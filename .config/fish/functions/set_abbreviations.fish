@@ -5,6 +5,7 @@ function set_abbreviations
   abbr -a gc   git commit
   abbr -a gcm  git commit --message
   abbr -a gca  git commit --amend
+  abbr -a gcan git commit --amend --no-edit
   abbr -a gco  git checkout
   abbr -a gcob git checkout -b
   abbr -a gcom git checkout master
