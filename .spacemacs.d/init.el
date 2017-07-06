@@ -389,3 +389,5 @@ you should place your code here."
  '(font-lock-comment-delimiter-face ((t (:slant italic))))
  '(font-lock-comment-face ((t (:slant italic))))
  '(font-lock-doc-face ((t (:slant italic)))))
+
+(set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)
