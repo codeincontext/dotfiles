@@ -4,6 +4,7 @@ function set_abbreviations
   abbr -a gai  git add --intent-to-add --all
   abbr -a gc   git commit
   abbr -a gcm  git commit --message
+  abbr -a gcf  git commit --fixup
   abbr -a gca  git commit --amend
   abbr -a gcan git commit --amend --no-edit
   abbr -a gco  git checkout
@@ -26,6 +27,7 @@ function set_abbreviations
   abbr -a grom  git fetch\; git rebase origin/master
   abbr -a grc   git rebase --continue
   abbr -a gri   git rebase --interactive
+  abbr -a gras  git rebase --autosquash head~8
   abbr -a hpr   git push origin head\; and hub pull-request
 
   abbr -a dotfiles /usr/bin/git --git-dir=$HOME/dotfiles.git/ --work-tree=$HOME
