@@ -1,7 +1,7 @@
 ;; Use rjsx mode instead of react-mode for better syntax highlighting and indentation
 ;; Initial layer from https://github.com/aaronjensen/spacemacs.d/tree/master/layers/%2Baj/aj-javascript
-;; Edited to remove eslintd-fix and flow
-;; Has working tern, company-tern, flycheck
+;; Edited to remove eslintd-fix
+;; Has working tern, company-tern, flycheck, flow
 ;; No evil-matchit
 ;; This mode doesn't define any toggles under [SPC m]
 ;; Including things like SPC m m g(jump to definition)
@@ -9,8 +9,9 @@
 
 (defconst aj-javascript-packages
   '(
-    add-node-modules-path
-    flycheck
+    ;; company-flow
+    ;; flycheck
+    prettier-js
     rjsx-mode
     ))
 
@@ -37,24 +38,53 @@
     :config
     (modify-syntax-entry ?_ "w" js2-mode-syntax-table)))
 
-(defun aj-javascript/init-add-node-modules-path ()
-  (use-package add-node-modules-path
+;; (defun aj-javascript/post-init-company-flow ()
+;;   (spacemacs|add-company-backends
+;;    :backends
+;;    '((company-flow :with company-dabbrev-code)
+;;      company-files)))
+
+;; (spacemacs|use-package-add-hook company-flow
+;;   :post-init
+;;   (progn
+;;     (setq company-backends-js2-mode '((company-flow :with company-dabbrev)
+;;                                       company-files
+;;                                       company-dabbrev))
+;;     (setq company-backends-react-mode '((company-flow :with company-dabbrev)
+;;                                         company-files
+;;                                         company-dabbrev))))
+
+
+;; (spacemacs|use-package-add-hook company-flow
+;;   :post-init
+;;   (progn
+;;     (setq company-backends-js2-mode '((company-flow :with company-dabbrev-code)
+;;                                       company-files))
+;;     (setq company-backends-react-mode '((company-flow :with company-dabbrev-code)
+;;                                         company-files))))
+
+;; (defun aj-javascript/post-init-flycheck ()
+;;   (with-eval-after-load 'flycheck
+;;     (push 'javascript-jshint flycheck-disabled-checkers)
+;;     (push 'json-jsonlint flycheck-disabled-checkers))
+
+;;   (spacemacs/add-flycheck-hook 'rjsx-mode))
+;;   ;; (spacemacs/enable-flycheck 'rjsx-mode))
+
+(eval-after-load 'css-mode
+  '(add-hook 'css-mode-hook #'add-node-modules-path))
+
+(defun aj-javascript/init-prettier-js ()
+  (use-package prettier-js
     :defer t
     :init
     (progn
-      (add-hook 'web-typescript-mode-hook #'add-node-modules-path)
-      (add-hook 'web-mode-hook #'add-node-modules-path)
-      (add-hook 'typescript-mode-hook #'add-node-modules-path)
-      (with-eval-after-load 'rjsx-mode
-        (add-hook 'rjsx-mode-hook #'add-node-modules-path)))))
-
-(defun aj-javascript/post-init-flycheck ()
-  (with-eval-after-load 'flycheck
-    (push 'javascript-jshint flycheck-disabled-checkers)
-    (push 'json-jsonlint flycheck-disabled-checkers))
-
-  (spacemacs/add-flycheck-hook 'rjsx-mode))
-  ;; (spacemacs/enable-flycheck 'rjsx-mode))
+      (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+      (add-hook 'css-mode-hook 'prettier-js-mode)
+      (setq prettier-js-args '(
+                               "--trailing-comma" "es5"
+                               "--single-quote"
+                               )))))
 
 (defun react-tag-fix ()
   (define-key evil-insert-state-map (kbd "C-d") nil))

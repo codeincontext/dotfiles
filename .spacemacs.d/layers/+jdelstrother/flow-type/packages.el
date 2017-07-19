@@ -28,6 +28,9 @@
     "ft" 'flow-minor-type-at-pos
     ))
 
+;; ;; This can be replaced with the next spacemacs release
+;; ;; https://github.com/aaronjensen/spacemacs.d/commit/88827c2a48eee03d752bcb48b7f2761b179ee9bc
+;; ;; https://github.com/aaronjensen/spacemacs.d/commit/05faabd470ca615458b1922f4b896858b35648ed
 (defun flow-type/init-add-node-modules-path()
   (use-package add-node-modules-path))
 
@@ -38,7 +41,11 @@
     (push 'flow-type/enable-eldoc react-mode-hook)))
 
 (defun flow-type/post-init-company()
-  (spacemacs|add-company-backends :backends company-flow :modes js2-mode react-mode))
+  ;; (spacemacs|add-company-backends :backends company-flow :modes js2-mode react-mode))
+  (when (configuration-layer/package-usedp 'js2-mode)
+    (spacemacs|add-company-hook js2-mode))
+  (when (configuration-layer/layer-usedp 'react)
+    (spacemacs|add-company-hook react-mode)))
 
 (defun flow-type/post-init-js2-mode()
   (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
@@ -55,9 +62,17 @@
 (defun flow-type/init-company-flow ()
   (use-package company-flow
     :defer t
+    :init
+    (progn
+       (push 'company-flow company-backends-js2-mode)
+       (when (configuration-layer/layer-usedp 'react)
+         (push 'company-flow company-backends-react-mode))
+    )
     :config
     (when (configuration-layer/layer-usedp 'react)
-      (push 'react-mode company-flow-modes))))
+      ;; (push 'react-mode company-flow-modes))))
+      (push 'react-mode company-flow-modes)))
+  )
 
 (defun flow-type/init-flycheck-flow()
   (with-eval-after-load 'flycheck
