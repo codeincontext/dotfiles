@@ -13,11 +13,14 @@ function set_abbreviations
   abbr -a gco- git checkout -
   abbr -a gb   git branch
   abbr -a gbs  git branch --sort=-committerdate
+  abbr -a gmt  git mergetool
+  abbr -a gcp  git cherry-pick
 
-  abbr -a gs   git status --short
+  abbr -a gs   git status --short --branch
   abbr -a gd   git diff
   abbr -a gds  git diff --staged
   abbr -a gl   git log --pretty=format:\"\%h \%ad \| \%s\%d [\%an]\" --graph --date=short
+  abbr -a glh   git log --pretty=format:\"\%h \%ad \| \%s\%d [\%an]\" --graph --date=short | head
   abbr -a gg   git grep
 
   abbr -a gf    git fetch
