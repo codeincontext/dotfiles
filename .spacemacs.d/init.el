@@ -341,6 +341,9 @@ you should place your code here."
 
   (global-git-commit-mode t)
 
+  ;; Don't show loads of crap in the menu bar for each minor mode
+  (menu-bar-mode 0)
+
   (setq powerline-default-separator 'utf-8)
   (spaceline-compile)
 

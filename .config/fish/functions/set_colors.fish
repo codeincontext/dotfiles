@@ -1,5 +1,6 @@
 function set_colors
-  eval sh $HOME/.config/oceanic-next-shell/oceanic-next.dark.sh
+  sh $HOME/.config/oceanic-next-shell/oceanic-next.dark.sh
+
 
   set -g fish_term24bit 1
   # from dark to light
