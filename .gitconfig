@@ -1,0 +1,46 @@
+# gitconfig template, populated by bootstrap file
+# this means I keep my name and email off github
+#
+
+[hub]
+	protocol = ssh
+[user]
+        name = Adam Howard
+        email = skattyadz+gh@gmail.com
+[credential]
+        helper = osxkeychain
+[alias]
+	type = cat-file -t
+	dump = cat-file -p
+
+        count   = !git shortlog -sn
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = true
+[core]
+        excludesfile = ~/.gitignore
+        editor = emacsclient
+[apply]
+        whitespace = nowarn
+[mergetool]
+        keepBackup = false
+[difftool]
+        prompt = false
+[help]
+        autocorrect = 1
+[push]
+        # See `git help config` (search for push.default)
+        # for more information on different options of the below setting.
+        #
+        # Setting to git 2.0 default to suppress warning message
+        default = simple
+[status]
+	# showUntrackedFiles = no
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[diff]
+	indentHeuristic = on
