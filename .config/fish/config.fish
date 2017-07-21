@@ -4,21 +4,12 @@ end
 
 set -x PATH /usr/local/bin $PATH # homebrew
 
-set -x EDITOR nvim
+set -x EDITOR emacsclient
 # set -x RBENV_VERSION
 
 set -x FZF_DEFAULT_COMMAND 'ag -l --hidden -g ""'
 
 set fish_greeting '' # turn off greeting
-
-# my vim config prints an ACTIVE_VIM_BUFFFER_PATH session env. We want this to
-# be accessible through $V
-# function -e fish_preexec set_active_vim_file_env
-#   set -l BUFFER_PATH (tmux show-environment ACTIVE_VIM_BUFFER_PATH ^/dev/null)
-#   if test $BUFFER_PATH
-#     set -g V (echo $BUFFER_PATH | sed "s:^.*=::")
-#   end
-# end
 
 set_abbreviations
 
