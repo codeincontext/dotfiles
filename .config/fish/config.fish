@@ -17,4 +17,6 @@ set -u fish_user_paths $fish_user_paths /usr/local/var/rbenv/shims
 set -gx RBENV_ROOT /usr/local/var/rbenv
 # . (rbenv init -|psub)
 
-archey
+function fish_greeting
+  archey
+end
