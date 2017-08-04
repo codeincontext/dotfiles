@@ -20,7 +20,7 @@ function set_abbreviations
   abbr -a gd   git diff
   abbr -a gds  git diff --staged
   abbr -a gl   git log --pretty=format:\"\%h \%ad \| \%s\%d [\%an]\" --graph --date=short
-  abbr -a glh   git log --pretty=format:\"\%h \%ad \| \%s\%d [\%an]\" --graph --date=short | head
+  abbr -a glh   git log --pretty=format:\"\%h \%ad \| \%s\%d [\%an]\" --graph --date=short \| head
   abbr -a gg   git grep
 
   abbr -a gf    git fetch
