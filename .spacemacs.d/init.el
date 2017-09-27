@@ -58,7 +58,8 @@ values."
      ;; spell-checking
      syntax-checking
      (version-control :variables
-                       version-control-diff-tool 'git-gutter+)
+                      version-control-diff-tool 'git-gutter+
+                      version-control-diff-side 'left)
      github
      emoji
      vinegar

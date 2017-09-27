@@ -83,7 +83,7 @@
       (add-hook 'css-mode-hook 'prettier-js-mode)
       (setq prettier-js-args '(
                                "--trailing-comma" "es5"
-                               "--single-quote"
+                               ;; "--single-quote"
                                )))))
 
 (defun react-tag-fix ()

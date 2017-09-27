@@ -29,6 +29,7 @@ brew 'GraphicsMagick'
 brew 'hive'
 brew 'hub'
 brew 'imagemagick'
+brew 'kubernetes-cli'
 brew 'n' # node version manager
 brew 'mas'
 brew 'mitmproxy'

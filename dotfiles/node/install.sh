@@ -7,3 +7,4 @@ npm install -g create-react-app
 npm install -g standard-format
 npm install -g tern
 npm install -g js-beautify
+npm install -g stylelint
