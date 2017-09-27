@@ -6,7 +6,7 @@ Just my dotfiles
 Bare git repo approach inspired by [skx/dotfiles](https://github.com/skx/dotfiles) and [this Atlassian post](https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/)
 
 
-Setup
+Config Setup
 --------------------
 
 This repository should be cloned/used as a "bare" repository, which lets you track files outside the git folder (in the home directory in this case)
@@ -21,7 +21,7 @@ Step two: Set up an alias
 
 Step three: Tell git to ignore untracked files
 
-     dotfiles --local status.showUntrackedFiles no
+     dotfiles config --local status.showUntrackedFiles no
 
 Step three: See which files will be over-written in your current home directory:
 
@@ -32,3 +32,14 @@ Step four: When you're happy to replace them, do the necessary:
      dotfiles checkout -b original_files -f
      dotfiles commit -a -m 'original files'
      dotfiles checkout master
+
+
+Mac Setup
+--------------------
+
+```bash
+cd ~/dotfiles
+./install
+```
+
+
