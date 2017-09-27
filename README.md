@@ -13,25 +13,35 @@ This repository should be cloned/used as a "bare" repository, which lets git tra
 
 Step one: Clone as bare repo
 
-     git clone --bare git@github.com:skattyadz/dotfiles.git ~/dotfiles.git
+```bash
+git clone --bare git@github.com:skattyadz/dotfiles.git ~/dotfiles.git
+```
 
 Step two: Set up an alias
 
-     alias dotfiles="git --git-dir=$HOME/dotfiles.git --work-tree=$HOME"
+```bash
+alias dotfiles="git --git-dir=$HOME/dotfiles.git --work-tree=$HOME"
+```
 
 Step three: Tell git to ignore untracked files
 
-     dotfiles config --local status.showUntrackedFiles no
+```bash
+dotfiles config --local status.showUntrackedFiles no
+```
 
 Step three: See which files will be over-written in your current home directory:
 
-     dotfiles status -s -uno
+```bash
+dotfiles status -s -uno
+```
 
 Step four: When you're happy to replace them, do the necessary:
 
-     dotfiles checkout -b original_files -f
-     dotfiles commit -a -m 'original files'
-     dotfiles checkout master
+```bash
+dotfiles checkout -b original_files -f
+dotfiles commit -a -m 'original files'
+dotfiles checkout master
+```
 
 Now you need to run the install scripts
 
