@@ -38,7 +38,7 @@ Mac Setup
 --------------------
 
 ```bash
-cd ~/dotfiles
+cd ~/dotfiles-scripts
 ./install
 ```
 
