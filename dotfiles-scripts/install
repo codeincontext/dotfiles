@@ -4,7 +4,9 @@
 
 set -e
 
-# find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+homebrew/install.sh
 
-echo "The read prompts in symlinks/install.sh don't work inside this script. For now, run symlinks/install.sh directly"
+# find the installers and run them iteratively
+# find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+
+# echo "The read prompts in symlinks/install.sh don't work inside this script. For now, run symlinks/install.sh directly"
