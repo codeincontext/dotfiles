@@ -17,6 +17,6 @@ fi
 echo "› brew bundle"
 brew bundle --file=homebrew/Brewfile
 
-brew linkapps emacs-plus
+# brew linkapps emacs-plus
 
 exit 0
