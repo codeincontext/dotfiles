@@ -1,8 +1,9 @@
 cask_args appdir: "/Applications"
 
-tap 'caskroom/cask'
-tap 'caskroom/versions'
-tap 'caskroom/fonts'
+tap 'homebrew/cask-cask'
+tap 'homebrew/cask-versions'
+tap 'homebrew/cask-fonts'
+
 tap 'homebrew/bundle'
 tap 'homebrew/dupes'
 tap 'homebrew/python'
@@ -28,7 +29,6 @@ brew 'postgresql'
 brew 'ruby-build'
 brew 'rbenv'
 brew 'rbenv-default-gems'
-brew 'reattach-to-user-namespace'
 brew 'redis'
 brew 'switchaudio-osx'
 brew 'terraform'
@@ -63,6 +63,7 @@ cask 'moom'
 cask 'paw'
 # cask 'prey'
 # cask 'principle'
+cask 'visual-studio-code'
 
 # quicklook
 cask 'qlcolorcode'
