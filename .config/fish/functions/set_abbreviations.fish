@@ -4,7 +4,7 @@ function set_abbreviations
   abbr -a gai  git add --intent-to-add --all
   abbr -a gc   git commit
   abbr -a gcm  git commit --message
-  abbr -a gcf  git commit --fixup
+  abbr -a gfu  git commit --fixup
   abbr -a gca  git commit --amend
   abbr -a gcan git commit --amend --no-edit
   abbr -a gco  git checkout
@@ -26,12 +26,20 @@ function set_abbreviations
   abbr -a gf    git fetch
   abbr -a gpl   git pull
   abbr -a gpoh  git push origin head
-  abbr -a gpohf git push origin head -f
+  abbr -a gpohf git push origin head --force-with-lease
+  abbr -a gr    git rebase
   abbr -a grom  git fetch\; git rebase origin/master
   abbr -a grc   git rebase --continue
+  abbr -a grs   git rebase --skip
   abbr -a gri   git rebase --interactive
-  abbr -a gras  git rebase --autosquash head~8
+  abbr -a gras  git rebase --interactive --autosquash head~8
   abbr -a hpr   git push origin head\; and hub pull-request
+
+  abbr -a dc    docker-compose
+  abbr -a dcu   docker-compose up
+  abbr -a dcub  docker-compose up --build
+  abbr -a dcr   docker-compose run
+  abbr -a dce   docker-compose exec
 
   abbr -a dotfiles /usr/bin/git --git-dir=$HOME/dotfiles.git/ --work-tree=$HOME
 

@@ -21,11 +21,15 @@
         ui = true
 [core]
         excludesfile = ~/.gitignore
-        editor = emacsclient
+	editor = code --wait
+	trustctime = false
+	ignorecase = true
 [apply]
         whitespace = nowarn
 [mergetool]
         keepBackup = false
+[merge]
+        conflictstyle = diff3
 [difftool]
         prompt = false
 [help]
@@ -44,3 +48,5 @@
 	smudge = git media smudge %f
 [diff]
 	indentHeuristic = on
+[branch]
+	sort = -authordate

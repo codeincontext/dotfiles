@@ -1,3 +1,5 @@
+cask_args appdir: "/Applications"
+
 tap 'caskroom/cask'
 tap 'caskroom/versions'
 tap 'caskroom/fonts'
@@ -9,10 +11,13 @@ tap 'homebrew/versions'
 tap 'homebrew/binary'
 tap 'neovim/neovim'
 tap 'd12frosted/emacs-plus'
+tap 'crisidev/homebrew-chunkwm'
+
 
 brew 'archey'
 brew 'awscli'
 brew 'autojump'
+brew 'chunkwm'
 brew 'dos2unix'
 brew 'emacs-plus'
 brew 'erlang'
@@ -110,3 +115,7 @@ cask 'steam'
 cask 'the-unarchiver'
 cask 'zeplin'
 cask 'docker'
+cask 'whatsapp'
+cask 'chatmate-for-facebook'
+cask 'chatmate-for-whatsapp'
+cask 'visual-studio-code'

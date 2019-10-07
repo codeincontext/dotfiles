@@ -38,6 +38,7 @@ then
   then
     echo "› Linking ~/Desktop and ~/Downloads"
 
+    
     mv ~/Desktop/* ~/Downloads
     sudo rm -rf ~/Desktop
     ln -s ~/Downloads ~/Desktop

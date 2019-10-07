@@ -1,5 +1,11 @@
+# For profiling the prompt
+# fish --profile prompt.prof -ic 'fish_prompt; exit'; sort -nk 2 prompt.prof
+
 function prompt_pwd2 --description "Tidier pwd"
-  echo $PWD | sed -e "s|^$HOME|~|"
+  set -l home_dir (string match -r "$HOME(/.*|\$)" "$PWD")
+  if set -q home_dir[2]
+    echo "~$home_dir[2]"
+  end
 end
 
 function git_branch --description "Name of current git branch"

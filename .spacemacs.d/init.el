@@ -64,11 +64,12 @@ values."
      emoji
      vinegar
      theming
+     docker
      )
-   ;; List of additional packages that will be installed without being
+ ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'.
+   ;; configuration in `spacemacs/user-config'.
    dotspacemacs-additional-packages '(
      evil-quickscope
    )
@@ -158,11 +159,11 @@ values."
    ;;                             :weight normal
    ;;                             :width normal
    ;;                             :powerline-scale 1.1)
-   dotspacemacs-default-font '("Operator Mono"
-                               :size   13
-                               :weight normal
-                               ;; :weight light
-                               :width  normal
+   dotspacemacs-default-font '("Operator Mono SSm Lig"
+                               :size 12
+                               :weight light
+                               ;; :width  normal
+                               ;; :style Book
                                :powerline-scale 1.2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
@@ -296,7 +297,7 @@ values."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis t
+   dotspacemacs-smart-closing-parenthesis nil
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -366,7 +367,80 @@ you should place your code here."
            (font-lock-doc-face :slant italic)
            ;; (sp-show-pair-match-face :background "#404036" :foreground nil :inverse-video nil :bold t)
            ;; (sp-pair-overlay-face :background nil)
-                      )))
+           )))
+
+;;     (defun my-correct-symbol-bounds (pretty-alist)
+;;     "Prepend a TAB character to each symbol in this alist,
+;; this way compose-region called by prettify-symbols-mode
+;; will use the correct width of the symbols
+;; instead of the width measured by char-width."
+;;     (mapcar (lambda (el)
+;;               (setcdr el (string ?\t (cdr el)))
+;;               el)
+;;             pretty-alist))
+
+;;   (defun my-ligature-list (ligatures codepoint-start)
+;;     "Create an alist of strings to replace with
+;; codepoints starting from codepoint-start."
+;;     (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
+;;       (-zip-pair ligatures codepoints)))
+
+;;   (setq my-fira-code-ligatures
+;;         (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+;;                        "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+;;                        "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+;;                        "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+;;                        ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
+;;                        "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
+;;                        "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
+;;                        "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
+;;                        ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
+;;                        "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
+;;                        "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
+;;                        "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
+;;                        "x" ":" "+" "+" "*")))
+;;           (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
+
+  ;; ;; nice glyphs for haskell with hasklig
+  ;; (defun my-set-fira-code-ligatures ()
+  ;;   "Add fira code ligatures for use with prettify-symbols-mode."
+  ;;   (setq prettify-symbols-alist
+  ;;         (append my-fira-code-ligatures prettify-symbols-alist))
+  ;;   (prettify-symbols-mode))
+
+(let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+               (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+               (36 . ".\\(?:>\\)")
+               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+               (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+               (48 . ".\\(?:x[a-zA-Z]\\)")
+               (58 . ".\\(?:::\\|[:=]\\)")
+               (59 . ".\\(?:;;\\|;\\)")
+               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+               (91 . ".\\(?:]\\)")
+               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+               (94 . ".\\(?:=\\)")
+               (119 . ".\\(?:ww\\)")
+               (123 . ".\\(?:-\\)")
+               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+               (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+               )
+             ))
+  (dolist (char-regexp alist)
+    (set-char-table-range composition-function-table (car char-regexp)
+                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
+
+;; (mac-auto-operator-composition-mode)
+
+  ;; (add-hook 'prog-mode-hook 'my-set-fira-code-ligatures)
 
   (setq-default
    ;; web-mode
@@ -386,12 +460,13 @@ you should place your code here."
  '(flycheck-javascript-flow-args (quote ("--respect-pragma")))
  '(package-selected-packages
    (quote
-    (prettier-js flycheck-flow flow-minor-mode company-flow rjsx-mode eslintd-fix add-node-modules-path winum fuzzy swift-mode insert-shebang fish-mode company-shell sql-indent yaml-mode nginx-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy evil-quickscope emoji-cheat-sheet-plus company-emoji mmm-mode markdown-toc markdown-mode gh-md rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl orgit org magit-gitflow magit-gh-pulls helm-gitignore helm-company helm-c-yasnippet github-search github-clone gist gh marshal logito pcache flycheck-pos-tip pos-tip evil-magit magit magit-popup git-commit company-statistics auto-yasnippet ac-ispell xterm-color shell-pop multi-term flycheck eshell-z eshell-prompt-extras esh-help smeargle gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link with-editor github-browse-file ht company yasnippet auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme))))
+    (dockerfile-mode docker tablist docker-tramp prettier-js flycheck-flow flow-minor-mode company-flow rjsx-mode eslintd-fix add-node-modules-path winum fuzzy swift-mode insert-shebang fish-mode company-shell sql-indent yaml-mode nginx-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy evil-quickscope emoji-cheat-sheet-plus company-emoji mmm-mode markdown-toc markdown-mode gh-md rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl orgit org magit-gitflow magit-gh-pulls helm-gitignore helm-company helm-c-yasnippet github-search github-clone gist gh marshal logito pcache flycheck-pos-tip pos-tip evil-magit magit magit-popup git-commit company-statistics auto-yasnippet ac-ispell xterm-color shell-pop multi-term flycheck eshell-z eshell-prompt-extras esh-help smeargle gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link with-editor github-browse-file ht company yasnippet auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#1b2b34" :foreground "#c0c5ce" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight semi-light :height 130 :width normal :foundry "nil" :family "Operator Mono SSm Lig"))))
  '(font-lock-comment-delimiter-face ((t (:slant italic))))
  '(font-lock-comment-face ((t (:slant italic))))
  '(font-lock-doc-face ((t (:slant italic)))))
