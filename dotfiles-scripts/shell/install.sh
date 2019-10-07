@@ -1,2 +1,2 @@
-chsh -s /usr/local/bin/fish
-
+sudo sh -c "echo $(which fish) >> /etc/shells"
+chsh -s $(which fish)
