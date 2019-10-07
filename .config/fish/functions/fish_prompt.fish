@@ -29,6 +29,6 @@ function fish_prompt --description 'Write out the prompt'
   echo -n (git_branch)
 
   echo # newline
-  echo -n (~/random_emoji.sh)'  '
+  echo -n (~/.config/fish/random_emoji.sh)'  '
   set_color $normal
 end
