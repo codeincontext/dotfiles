@@ -7,18 +7,7 @@
 	<key>connections</key>
 	<dict>
 		<key>1108746D-61BF-4A1C-A213-9C840506F7C1</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>7D90603A-15BD-4415-930F-A8C20ABF8ABD</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 		<key>204BA2D0-C30A-4C81-98B2-250B1FE55ECD</key>
 		<array>
 			<dict>
@@ -33,31 +22,9 @@
 			</dict>
 		</array>
 		<key>2723754D-A50E-402F-A3DA-7F8BBE72DB63</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>485D03BE-8890-4582-8E52-D2FA8FD02D2B</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 		<key>3F34C3EE-BA5D-4960-9381-2F9DC75CF1B7</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>D2CE3E3C-D90C-4951-9968-AAA9D7CC5EE8</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 		<key>45424042-7C5B-4FE8-885E-60DE1CA33933</key>
 		<array>
 			<dict>
@@ -72,18 +39,7 @@
 			</dict>
 		</array>
 		<key>698AF233-1EEC-4CAE-A281-0881A56FA447</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>B511D66F-CA79-4815-938E-00F6BCF5D580</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 		<key>87BFF13A-C2CA-448A-A2FC-D3EFF4377723</key>
 		<array>
 			<dict>
@@ -191,18 +147,7 @@
 			</dict>
 		</array>
 		<key>FBE0701A-4BD8-4F4D-9C05-293E9898AE28</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>9BDFE1A1-E831-4D8C-9591-888E6461B46D</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 	</dict>
 	<key>createdby</key>
 	<string></string>
@@ -498,40 +443,6 @@
 			<dict>
 				<key>paths</key>
 				<array>
-					<string>/Applications/Newton.app</string>
-				</array>
-				<key>toggle</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.launchfiles</string>
-			<key>uid</key>
-			<string>7D90603A-15BD-4415-930F-A8C20ABF8ABD</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>paths</key>
-				<array>
-					<string>/Applications/Tweetbot.app</string>
-				</array>
-				<key>toggle</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.launchfiles</string>
-			<key>uid</key>
-			<string>9BDFE1A1-E831-4D8C-9591-888E6461B46D</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>paths</key>
-				<array>
 					<string>/Applications/Visual Studio Code.app</string>
 				</array>
 				<key>toggle</key>
@@ -549,7 +460,7 @@
 			<dict>
 				<key>paths</key>
 				<array>
-					<string>/opt/homebrew-cask/Caskroom/spotify/latest/Spotify.app</string>
+					<string>/System/Volumes/Data/Applications/Spotify.app</string>
 				</array>
 				<key>toggle</key>
 				<true/>
@@ -865,7 +776,7 @@
 			<dict>
 				<key>paths</key>
 				<array>
-					<string>/opt/homebrew-cask/Caskroom/slack/1.1.9/Slack.app</string>
+					<string>/System/Volumes/Data/Applications/Slack.app</string>
 				</array>
 				<key>toggle</key>
 				<true/>
@@ -874,23 +785,6 @@
 			<string>alfred.workflow.action.launchfiles</string>
 			<key>uid</key>
 			<string>01DD284C-3150-455D-9D63-E4636CF3C0CD</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>paths</key>
-				<array>
-					<string>/usr/local/Caskroom/sketch/latest/Sketch.app</string>
-				</array>
-				<key>toggle</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.launchfiles</string>
-			<key>uid</key>
-			<string>B511D66F-CA79-4815-938E-00F6BCF5D580</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1167,23 +1061,6 @@
 			<dict>
 				<key>paths</key>
 				<array>
-					<string>~/Applications/Zeplin.app</string>
-				</array>
-				<key>toggle</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.launchfiles</string>
-			<key>uid</key>
-			<string>485D03BE-8890-4582-8E52-D2FA8FD02D2B</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>paths</key>
-				<array>
 					<string>/Applications/Xcode.app</string>
 				</array>
 				<key>toggle</key>
@@ -1193,23 +1070,6 @@
 			<string>alfred.workflow.action.launchfiles</string>
 			<key>uid</key>
 			<string>E62589A0-F861-47B6-9B4D-A1A25F22BDFA</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>paths</key>
-				<array>
-					<string>/opt/homebrew-cask/Caskroom/caprine/0.5.1/Caprine.app</string>
-				</array>
-				<key>toggle</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.launchfiles</string>
-			<key>uid</key>
-			<string>D2CE3E3C-D90C-4951-9968-AAA9D7CC5EE8</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1288,26 +1148,12 @@
 			<key>ypos</key>
 			<integer>240</integer>
 		</dict>
-		<key>485D03BE-8890-4582-8E52-D2FA8FD02D2B</key>
-		<dict>
-			<key>xpos</key>
-			<integer>170</integer>
-			<key>ypos</key>
-			<integer>480</integer>
-		</dict>
 		<key>698AF233-1EEC-4CAE-A281-0881A56FA447</key>
 		<dict>
 			<key>xpos</key>
 			<integer>1080</integer>
 			<key>ypos</key>
 			<integer>240</integer>
-		</dict>
-		<key>7D90603A-15BD-4415-930F-A8C20ABF8ABD</key>
-		<dict>
-			<key>xpos</key>
-			<integer>200</integer>
-			<key>ypos</key>
-			<integer>120</integer>
 		</dict>
 		<key>87BFF13A-C2CA-448A-A2FC-D3EFF4377723</key>
 		<dict>
@@ -1336,13 +1182,6 @@
 			<integer>240</integer>
 			<key>ypos</key>
 			<integer>300</integer>
-		</dict>
-		<key>9BDFE1A1-E831-4D8C-9591-888E6461B46D</key>
-		<dict>
-			<key>xpos</key>
-			<integer>630</integer>
-			<key>ypos</key>
-			<integer>120</integer>
 		</dict>
 		<key>9EA61428-892C-4F82-A941-0522212EB787</key>
 		<dict>
@@ -1393,13 +1232,6 @@
 			<key>ypos</key>
 			<integer>60</integer>
 		</dict>
-		<key>B511D66F-CA79-4815-938E-00F6BCF5D580</key>
-		<dict>
-			<key>xpos</key>
-			<integer>1080</integer>
-			<key>ypos</key>
-			<integer>300</integer>
-		</dict>
 		<key>C03CE500-BFDB-4E6A-82B9-EBD14F09C645</key>
 		<dict>
 			<key>xpos</key>
@@ -1413,13 +1245,6 @@
 			<integer>660</integer>
 			<key>ypos</key>
 			<integer>240</integer>
-		</dict>
-		<key>D2CE3E3C-D90C-4951-9968-AAA9D7CC5EE8</key>
-		<dict>
-			<key>xpos</key>
-			<integer>1010</integer>
-			<key>ypos</key>
-			<integer>480</integer>
 		</dict>
 		<key>D31B8E74-0AC2-48EC-8EE3-B5636DE42202</key>
 		<dict>
