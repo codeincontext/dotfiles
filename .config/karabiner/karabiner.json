@@ -564,32 +564,6 @@
                         ]
                     },
                     {
-                        "description": "Tab to super",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "tab"
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_shift",
-                                        "modifiers": [
-                                            "left_command",
-                                            "left_control",
-                                            "left_option"
-                                        ]
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "tab"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Better Shifting: Parentheses on shift keys",
                         "manipulators": [
                             {

@@ -8,7 +8,6 @@
   "editor.rulers": [80, 100, 120],
   "editor.minimap.maxColumn": 80,
   "editor.wrappingIndent": "none",
-  "editor.lineNumbers": "relative",
   "workbench.fontAliasing": "antialiased",
   "workbench.colorTheme": "Gatito Theme",
   "files.trimTrailingWhitespace": true,
@@ -21,25 +20,10 @@
     "suppressWelcomeNotice": true
   },
   "gitlens.keymap": "chorded",
-  "gitlens.historyExplorer.enabled": true,
   "html.format.wrapLineLength": 80,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
-  "window.zoomLevel": 0,
-  "editor.minimap.enabled": true,
-  "indentRainbow.colors": [
-    // "rgba(153, 199, 148, 0.03)",
-    // // "rgba(187, 128, 179, 0.03)",
-    // "rgba(102, 153, 204, 0.03)",
-    // "rgba(250, 200, 99, 0.03)",
-    // "rgba(95, 179, 179, 0.03)"
-    "rgba(61,79,59, 0.1)",
-    // "rgba(74,51,71, 0.1)",
-    "rgba(40,61,81, 0.1)",
-    "rgba(100,80,39, 0.1)",
-    "rgba(38,71,71, 0.1)"
-  ],
-  "indentRainbow.errorColor": "rgba(236, 95, 103, 0.6)",
+  "editor.minimap.enabled": false,
   // "eslint.autoFixOnSave": true,
   // "[javascript]": {
   //     "editor.formatOnSave": true
@@ -47,8 +31,6 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "window.newWindowDimensions": "maximized",
   "workbench.startupEditor": "newUntitledFile",
-  "workbench.statusBar.feedback.visible": false,
-  "vim.disableExtension": false,
   "editor.suggest.localityBonus": true,
   "editor.minimap.renderCharacters": false,
   "workbench.editor.closeOnFileDelete": true,
@@ -62,93 +44,87 @@
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "codemetrics.basics.ComplexityTemplate": "cx: {0}. {1}",
+  "codemetrics.basics.DecorationModeEnabled": false,
+  "codemetrics.basics.ComplexityLevelLowDescription": "",
+  "codemetrics.basics.ComplexityLevelNormalDescription": "Hmm",
+  "codemetrics.basics.ComplexityLevelHighDescription": "Uh oh",
+  "codemetrics.basics.ComplexityLevelExtremeDescription": "omg",
+  "codemetrics.basics.CodeLensHiddenUnder": 5,
+  "provisionlens.highlighting": false,
+  "codemetrics.nodeconfiguration.ReturnStatement": 0.1,
+  "codemetrics.nodeconfiguration.JsxElement": 0.1,
+  "codemetrics.nodeconfiguration.JsxSelfClosingElement": 0.1,
+  "vscode-neovim.neovimPath": "/usr/local/bin/nvim",
+  "workbench.editor.limit.enabled": true,
+  "editor.semanticHighlighting.enabled": true,
+  "eslint.packageManager": "yarn",
+  // TODO: might be able to avoid this with a central eslint config, even if empty
+  "eslint.workingDirectories": [
+    "./apollo",
+    "./frontend",
+    "./web/apollo",
+    "./web/frontend"
+  ],
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "terminal.integrated.scrollback": 10000,
+  "terminals.multiplexer": "tmux",
+  "spacecode.checkVimConfig": false,
+  "editor.scrollBeyondLastLine": false,
+  "vspacecode.checkVimConfig": false,
+  "prettier.packageManager": "yarn",
+  "vim.easymotion": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [" "],
+      "commands": ["vspacecode.space"]
+    },
+    {
+      "before": ["<space>"],
+      "commands": ["vspacecode.space"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [" "],
+      "commands": ["vspacecode.space"]
+    },
+    {
+      "before": ["<space>"],
+      "commands": ["vspacecode.space"]
+    }
+  ],
+  "vspacecode.bindingOverrides": [
+    {
+      "keys": "f.f",
+      "name": "Open file/folder",
+      "type": "command",
+      "command": "file-browser.open"
+    }
+  ],
+  "files.associations": {
+    "*.prisma": "prisma"
+  },
+  "terminal.integrated.shell.osx": "/usr/local/bin/fish",
+  "typescript.tsserver.log": "off",
+  "cSpell.userWords": ["vercel"],
+  "git.autofetch": true,
+  "typescript.implementationsCodeLens.enabled": true,
+  "javascript.referencesCodeLens.showOnAllFunctions": true,
+  "javascript.referencesCodeLens.enabled": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "editor.inlineSuggest.enabled": true,
+  "workbench.editorAssociations": {
+    "git-rebase-todo": "default"
   }
   // "editor.suggestSelection": "recentlyUsedByPrefix",
 }
-/* VSCodeVim tricks!
-Vim has a lot of nifty tricks and we try to preserve some of them:
-
-gd - jump to definition.
-gq - on a visual selection reflow and wordwrap blocks of text, preserving commenting style. Great for formatting documentation comments.
-gb - adds another cursor on the next word it finds which is the same as the word under the cursor.
-af - visual mode command which selects increasingly large blocks of text. For example, if you had "blah (foo [bar 'ba|z'])" then it would select 'baz' first. If you pressed af again, it'd then select [bar 'baz'
-], and if you did it a third time it would select "(foo [bar 'baz'])".
-gh - equivalent to hovering your mouse over wherever the cursor is. Handy for seeing types and error messages without reaching for the mouse!
-
-Based on vim-indent-object, it allows for treating blocks of code at the current indentation level as text objects. Useful in languages that don't use braces around statements (e.g. Python).
-
-Provided there is a new line between the opening and closing braces / tag, it can be considered an agnostic cib/ci{/ci[/cit.
-
-Command	Description
-<operator>ii	This indentation level
-<operator>ai	This indentation level and the line above (think if statements in Python)
-<operator>aI	This indentation level, the line above, and the line after (think if statements in C/C++/Java/etc)
-
-leader space	Run command
-leader tab	Next editor
-leader ; ;	Comment line
-leader '	Toggle terminal	Open terminal effectively
-leader /	Find in files
-leader 1	Focus first editor group
-leader 2	Focus second editor group
-leader 3	Focus third editor group
-leader b b	Quick open (show current buffers)
-leader b d	Close active editor
-leader b n	Next editor
-leader b p	Previous editor
-leader b s	Scratch buffer
-leader e l	List errors / problems
-leader f e	Show your settings file	Shorter binding (by 'd')
-leader f f	Open file
-leader f r	Open recent (show recent files)
-leader f s	Save file
-leader f t	Show explorer view
-leader f y	Copy current file path	Doesn't show the path
-leader g b	Git checkout
-leader g c	Git commit
-leader g d	Git delete branch
-leader g f	Git fetch
-leader g i	Git init
-leader g m	Git merge
-leader g p	Git publish
-leader g s	Show source control view
-leader g S	Git stage
-leader g U	Git unstage
-leader h d	Help describe keybindings
-leader i s	Insert snippet
-leader j =	Format document	Better than Spacemacs
-leader j j	Easymotion to character
-leader j l	Easymotion to line
-leader j w	Easymotion to word
-leader l d	Close folder
-leader p f	Quick open (allow to open any project file)
-leader p l	Open folder project
-leader p p	Open recent (show recent folders)
-leader p t	Show explorer view
-leader q f	Close window
-leader q q	Close window
-leader q r	Reload window
-leader r s	Find in files
-leader s e	Rename symbol	Works only on symbols
-leader s j	Go to symbol in file
-leader s p	Find in files
-leader s P	Find in files with selection
-leader T F	Toggle fullscreen
-leader T m	Toggle menu bar
-leader T s	Select color theme
-leader T t	Toggle activity bar
-leader v	Expand region	No transient state
-leader V	Shrink region	No transient state
-leader w d	Close editors in group
-leader w h	Previous editor group
-leader w H	Move editor group to left
-leader w l	Next editor group
-leader w L	Move editor group to right
-leader w m	Maximize
-leader w v	Split window
-leader w w	Next editor group
-leader w W	Previous editor group
-leader x s	Sort lines
-leader x w	Trim whitespace
-
-*/
